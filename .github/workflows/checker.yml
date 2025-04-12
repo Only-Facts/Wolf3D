@@ -17,22 +17,22 @@ jobs:
   check_repository:
     runs-on: ubuntu-latest
     outputs:
-      run: ${{ steps.repo.outputs.check_repository }}
+      same_repo: ${{ steps.repo.outputs.check_repository }}
     steps:
       - name: Check repository's name
         id: repo
         run: |
           if [[ "${{ github.repository }}" == "${{ env.MIRROR_REPO }}" ]]; then
-            echo "run=false" >> $GITHUB_OUTPUT
+            echo "same_repo=true" >> $GITHUB_OUTPUT
           else
-            echo "run=true" >> $GITHUB_OUTPUT
+            echo "same_repo=false" >> $GITHUB_OUTPUT
           fi
 
   check_coding_style:
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     needs: check_repository
-    if: ${{ needs.check_repository.outputs.run == 'true' }}
+    if: ${{ needs.check_repository.outputs.same_repo == 'false' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
