@@ -20,7 +20,7 @@ static size_t handle_error(int argc, const char *argv[])
         return print_help();
     if (argc > 1)
         return write_error("Error 84: Bad usage!\n\n"
-        "Usage: ./mysh [OPTIONS]\n"
+        "Usage: ./wolf3d [OPTIONS]\n"
         "Options:\n\t-h\n\t--help\n");
     return EXIT_SUCCESS;
 }
