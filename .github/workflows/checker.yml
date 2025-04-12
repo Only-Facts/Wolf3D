@@ -1,5 +1,5 @@
 name: checker workflow
-run-name: ${{ github.actor }} checker
+run-name: ${{ github.actor }}'s push checker
 on: 
   push:
     branches-ignore:
@@ -17,7 +17,7 @@ jobs:
   check_repository:
     runs-on: ubuntu-latest
     outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
+      should_run: ${{ steps.check.outputs.check_repository }}
     steps:
       - id: check
         run: |
@@ -31,6 +31,8 @@ jobs:
   check_coding_style:
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
+    needs: check_repository
+    if: ${{ needs.check_repository.outputs.check_repository == 'true' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
