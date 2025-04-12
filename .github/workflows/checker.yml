@@ -1,4 +1,4 @@
-name: checker workflow
+name: Chocolatine Checker
 run-name: ${{ github.actor }}'s push checker
 on: 
   push:
@@ -17,9 +17,9 @@ jobs:
   check_repository:
     runs-on: ubuntu-latest
     outputs:
-      should_run: ${{ steps.check.outputs.check_repository }}
+      run: ${{ steps.check.outputs.check_repository }}
     steps:
-      - id: check
+      - name: Check repository's name
         run: |
           if [[ "${{ github.repository }}" == "${{ env.MIRROR_REPO }}" ]]; then
             echo "run=false" >> $GITHUB_OUTPUT
