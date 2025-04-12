@@ -17,7 +17,7 @@ jobs:
   check_repository:
     runs-on: ubuntu-latest
     outputs:
-      same_repo: ${{ steps.repo.outputs.check_repository }}
+      same_repo: ${{ steps.repo.outputs.same_repo }}
     steps:
       - name: Check repository's name
         id: repo
