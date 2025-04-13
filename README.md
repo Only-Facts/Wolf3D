@@ -4,7 +4,7 @@ Your local low cost Wolfenstein 👍
 
 ```bash
 NAME
-        Wolf3D - Yet Another template
+        Wolf3D - Your local low cost Wolfenstein
 
 USAGE
         ./wolf3d [OPTIONS]
