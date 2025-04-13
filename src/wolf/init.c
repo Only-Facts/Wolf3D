@@ -28,9 +28,9 @@ static size_t handle_error(int argc, const char *argv[])
 int initialise(int argc, const char *argv[])
 {
     switch (handle_error(argc, argv)) {
-        case 2029:
+        case EXIT_HELP:
             return EXIT_SUCCESS;
-        case 84:
+        case EXIT_ERROR:
             return EXIT_ERROR;
         default:
             return EXIT_SUCCESS;
