@@ -7,6 +7,11 @@
 
 #include "my.h"
 
+static size_t wolfenstein(void)
+{
+    return EXIT_SUCCESS;
+}
+
 static size_t print_help(void)
 {
     write_mess(read_file("assets/txt/help"));
@@ -44,6 +49,6 @@ int initialise(int argc, const char *argv[], const char *env[])
         case EXIT_ERROR:
             return EXIT_ERROR;
         default:
-            return EXIT_SUCCESS;
+            return wolfenstein();
     }
 }
