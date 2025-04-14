@@ -7,8 +7,15 @@
 
 #ifndef MY
     #define MY
+
+    /* Mandatory */
     #include <unistd.h>
     #include <stdlib.h>
+
+    /* CSFML */
+    #include <SFML/Graphics.h>
+    #include <SFML/System.h>
+    #include <SFML/Window.h>
 
     /* DISPLAY Environement variable */
     #define DISPLAY "DISPLAY=:1"
