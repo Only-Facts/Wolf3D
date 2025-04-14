@@ -13,11 +13,22 @@ static size_t print_help(void)
     return EXIT_HELP;
 }
 
-static size_t handle_error(int argc, const char *argv[])
+static size_t check_env(const char *env[])
+{
+    for (size_t i = 0; env[i]; i++)
+        if (str_cmp(env[i], DISPLAY) == 0 &&
+        get_len(env[i]) == get_len(DISPLAY))
+            return EXIT_SUCCESS;
+    return EXIT_ERROR;
+}
+
+static size_t handle_error(int argc, const char *argv[], const char *env[])
 {
     if (argv && argv[1] && (str_cmp(argv[1], "-h") == 0 ||
         str_cmp(argv[1], "--help") == 0) && get_len(argv[1]) > 0)
         return print_help();
+    if (check_env(env) == EXIT_ERROR)
+        return write_error("Error 84: Bad DISPLAY environement variable.\n");
     if (argc > 1)
         return write_error("Error 84: Bad usage!\n\n"
         "Usage: ./wolf3d [OPTIONS]\n"
@@ -25,9 +36,9 @@ static size_t handle_error(int argc, const char *argv[])
     return EXIT_SUCCESS;
 }
 
-int initialise(int argc, const char *argv[])
+int initialise(int argc, const char *argv[], const char *env[])
 {
-    switch (handle_error(argc, argv)) {
+    switch (handle_error(argc, argv, env)) {
         case EXIT_HELP:
             return EXIT_SUCCESS;
         case EXIT_ERROR:

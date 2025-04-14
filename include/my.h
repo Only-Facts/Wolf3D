@@ -10,6 +10,9 @@
     #include <unistd.h>
     #include <stdlib.h>
 
+    /* DISPLAY Environement variable */
+    #define DISPLAY "DISPLAY=:1"
+
 enum {
     EXIT_ERROR = 84,
     EXIT_FAIL = -1,
@@ -20,7 +23,7 @@ enum {
 
 /* >------ Project ------< */
 /* init.c */
-int initialise(const int argc, const char *argv[]);
+int initialise(int argc, const char *argv[], const char *env[]);
 
 /* >------ Lib ------< */
 

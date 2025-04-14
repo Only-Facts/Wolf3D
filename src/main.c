@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int main(int argc, const char *argv[])
+int main(int argc, const char *argv[], const char *env[])
 {
-    return initialise(argc, argv);
+    return initialise(argc, argv, env);
 }
