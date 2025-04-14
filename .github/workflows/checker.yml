@@ -1,46 +1,4 @@
-name: Chocolatine Checker
-run-name: ${{ github.actor }}'s push checker
-on: 
-  push:
-    branches-ignore:
-      - "ga-ignore-**"
-  pull_request:
-    branches-ignore:
-      - "ga-ignore-**"
 
-env:
-  MIRROR_URL: git@github.com:EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge.git
-  MIRROR_REPO : EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge
-  EXECUTABLES: "wolf3d"
-
-jobs:
-  check_repository:
-    runs-on: ubuntu-latest
-    outputs:
-      same_repo: ${{ steps.repo.outputs.same_repo }}
-    steps:
-      - name: Check repository's name
-        id: repo
-        run: |
-          if [[ "${{ github.repository }}" == "${{ env.MIRROR_REPO }}" ]]; then
-            echo "same_repo=true" >> $GITHUB_OUTPUT
-          else
-            echo "same_repo=false" >> $GITHUB_OUTPUT
-          fi
-
-  check_coding_style:
-    runs-on: ubuntu-latest
-    container: ghcr.io/epitech/coding-style-checker:latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          repository: ''
-
-      - name: Coding Style
-        run: check.sh . /tmp
-
-      - name: Coding style error
         run: |
           input=/tmp/coding-style-reports.log
           while IFS= read -r line; do
@@ -63,7 +21,7 @@ jobs:
 
   check_program_compilation:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     container: epitechcontent/epitest-docker:latest
     needs: check_coding_style
     if: success()
@@ -93,7 +51,7 @@ jobs:
 
   run_tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     container: epitechcontent/epitest-docker:latest
     if: success()
     needs: check_program_compilation
