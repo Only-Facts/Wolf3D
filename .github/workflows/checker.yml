@@ -9,9 +9,9 @@ on:
       - "ga-ignore-**"
 
 env:
-  MIRROR_URL: git@github.com:YetAnotherMechanicusEnjoyer/template.git
-  MIRROR_REPO: YetAnotherMechanicusEnjoyer/template
-  EXECUTABLES: a.out
+  MIRROR_URL: git@github.com:EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge.git
+  MIRROR_REPO: EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge
+  EXECUTABLES: wolf3d
 
 jobs:
   check_repository:
