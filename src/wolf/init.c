@@ -7,8 +7,16 @@
 
 #include "my.h"
 
-static size_t wolfenstein(void)
+static data_t *init_struct(void)
 {
+    data_t *data = malloc(sizeof(data_t));
+    return data;
+}
+static size_t init_wolf(void){
+    data_t *data = init_struct();
+
+    if (init_window(data) == EXIT_ERROR)
+        return EXIT_ERROR;
     return EXIT_SUCCESS;
 }
 
@@ -49,6 +57,6 @@ int initialise(int argc, const char *argv[], const char *env[])
         case EXIT_ERROR:
             return EXIT_ERROR;
         default:
-            return wolfenstein();
+            return init_wolf();
     }
 }

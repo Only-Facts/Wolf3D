@@ -28,10 +28,14 @@ enum {
     CERR = 2,
 };
 
+typedef struct {
+    sfRenderWindow *window;
+} data_t;
+
 /* >------ Project ------< */
 /* init.c */
 int initialise(int argc, const char *argv[], const char *env[]);
-
+size_t init_window(data_t *data);
 /* >------ Lib ------< */
 
 /* lenght */

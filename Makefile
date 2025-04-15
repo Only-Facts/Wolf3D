@@ -19,15 +19,16 @@ LIB_FILES	=	write.c		\
 				file_reader.c	\
 				str_to_word_array.c
 
-DIR_TMP		=	wolf/
+DIR_WOLF		=	wolf/
 
-TMP_FILES	=	init.c	\
+WOLF_FILES	=	init.c	\
+				window.c	\
 
 DIR_SRC		=	src/
 
 SRC_FILES	=	main.c	\
 				$(addprefix $(DIR_LIB), $(LIB_FILES))	\
-				$(addprefix $(DIR_TMP), $(TMP_FILES))
+				$(addprefix $(DIR_WOLF), $(WOLF_FILES))
 
 SRC			=	$(addprefix $(DIR_SRC), $(SRC_FILES))
 
