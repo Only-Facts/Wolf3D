@@ -19,7 +19,8 @@ size_t init_wind_set(data_t *data)
     return EXIT_SUCCESS;
 }
 
-size_t init_window(data_t *data){
+size_t init_window(data_t *data)
+{
     if (init_wind_set(data) == EXIT_ERROR)
         return EXIT_ERROR;
     while (sfRenderWindow_isOpen(data->window)){
