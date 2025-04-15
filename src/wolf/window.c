@@ -27,6 +27,5 @@ size_t init_window(data_t *data){
         sfRenderWindow_display(data->window);
     }
     sfRenderWindow_destroy(data->window);
-    free(data->window);
     return EXIT_SUCCESS;
 }

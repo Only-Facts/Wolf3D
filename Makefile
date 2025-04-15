@@ -48,7 +48,7 @@ OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
 				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
-CFLAGS		=	-I./include
+CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system
 
 DFLAGS		=	-g -Wall -Wextra
 
