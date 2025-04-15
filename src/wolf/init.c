@@ -7,6 +7,12 @@
 
 #include "my.h"
 
+static void free_data(data_t *data)
+{
+    sfRenderWindow_destroy(data->window);
+    free(data);
+}
+
 static data_t *init_struct(void)
 {
     data_t *data = malloc(sizeof(data_t));
@@ -22,6 +28,7 @@ static size_t init_wolf(void)
 
     if (loop(data) == EXIT_ERROR)
         return EXIT_ERROR;
+    free_data(data);
     return EXIT_SUCCESS;
 }
 
