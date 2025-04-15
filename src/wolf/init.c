@@ -11,6 +11,8 @@ static data_t *init_struct(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
+    if (init_window(data) == EXIT_ERROR)
+        return NULL;
     return data;
 }
 
@@ -18,7 +20,7 @@ static size_t init_wolf(void)
 {
     data_t *data = init_struct();
 
-    if (init_window(data) == EXIT_ERROR)
+    if (loop(data) == EXIT_ERROR)
         return EXIT_ERROR;
     return EXIT_SUCCESS;
 }

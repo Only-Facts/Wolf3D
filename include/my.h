@@ -32,6 +32,9 @@ typedef struct {
     sfRenderWindow *window;
 } data_t;
 
+/* >----- GAME -----< */
+size_t loop(data_t *data);
+
 /* >------ Project ------< */
 /* init.c */
 int initialise(int argc, const char *argv[], const char *env[]);

@@ -23,6 +23,7 @@ DIR_WOLF		=	wolf/
 
 WOLF_FILES	=	init.c	\
 				window.c	\
+				loop.c	\
 
 DIR_SRC		=	src/
 
