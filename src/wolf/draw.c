@@ -27,12 +27,11 @@ static void create_wall(data_t *data, sfColor color, sfVector2f line, int i)
 
     if (!wall)
         return;
-    sfRectangleShape_setPosition(wall, (sfVector2f){i * 8 + 530, line.y});
+    sfRectangleShape_setPosition(wall, (sfVector2f){i * 8 + 250, line.y});
     sfRectangleShape_setSize(wall, (sfVector2f){8, line.x});
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);
-
 }
 
 static void draw_walls(data_t *data, sfColor color, float dist, size_t i)
@@ -50,7 +49,6 @@ static void draw_walls(data_t *data, sfColor color, float dist, size_t i)
         line.x = 320;
     line.y = 260 - line.x / 2;
     create_wall(data, color, line, i);
-
 }
 
 static void draw_rays(data_t *data)
@@ -97,7 +95,7 @@ static void draw_player(data_t *data)
 static void draw_map(data_t *data)
 {
     sfRectangleShape *tile = {0};
-    sfColor colors[2] = {BLACK, WHITE};
+    sfColor colors[2] = {BLACK, sfColor_fromRGB(100, 100, 200)};
 
     for (size_t y = 0; y < MAP_Y; y++)
         for (size_t x = 0; x < MAP_X; x++) {

@@ -10,9 +10,9 @@
     #include <SFML/Graphics.h>
 
     /* MAP */
-    #define MAP_Y 8
-    #define MAP_X 8
-    #define MAP_S 64
+    #define MAP_Y 16
+    #define MAP_X 16
+    #define MAP_S 10
 
 typedef struct {
     sfVector2f pos;

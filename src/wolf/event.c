@@ -29,15 +29,15 @@ static void update_movement(data_t *data)
         data->p->angle += 0.08;
         if (data->p->angle > 2 * PI)
             data->p->angle -= 2 * PI;
-        data->p->delta.x = cos(data->p->angle) * 2;
-        data->p->delta.y = sin(data->p->angle) * 2;
+        data->p->delta.x = cos(data->p->angle);
+        data->p->delta.y = sin(data->p->angle);
     }
     if (sfKeyboard_isKeyPressed(sfKeyQ)) {
         data->p->angle -= 0.08;
         if (data->p->angle < 0)
             data->p->angle += 2 * PI;
-        data->p->delta.x = cos(data->p->angle) * 2;
-        data->p->delta.y = sin(data->p->angle) * 2;
+        data->p->delta.x = cos(data->p->angle);
+        data->p->delta.y = sin(data->p->angle);
     }
 }
 
