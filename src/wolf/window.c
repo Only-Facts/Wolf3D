@@ -6,10 +6,11 @@
 */
 
 #include "my.h"
+#include "macro.h"
 
 size_t init_window(data_t *data)
 {
-    sfVideoMode mode = {1920, 1080, 32};
+    sfVideoMode mode = {WIDTH, HEIGHT, 32};
 
     data->window = sfRenderWindow_create(mode, "WOLF_3D", sfClose, NULL);
     if (!data->window)

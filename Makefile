@@ -21,9 +21,12 @@ LIB_FILES	=	write.c		\
 
 DIR_WOLF		=	wolf/
 
-WOLF_FILES	=	init.c	\
+WOLF_FILES	=	init.c		\
 				window.c	\
-				loop.c	\
+				loop.c		\
+				draw.c		\
+				event.c		\
+				player.c	\
 
 DIR_SRC		=	src/
 

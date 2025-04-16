@@ -11,6 +11,7 @@
     /* Mandatory */
     #include <unistd.h>
     #include <stdlib.h>
+    #include "struct.h"
 
     /* CSFML */
     #include <SFML/Graphics.h>
@@ -28,17 +29,26 @@ enum {
     CERR = 2,
 };
 
-typedef struct {
-    sfRenderWindow *window;
-} data_t;
-
-/* >----- GAME -----< */
-size_t loop(data_t *data);
-
 /* >------ Project ------< */
+
+/* draw.c */
+void draw_player(data_t *data);
+
+/* event.c */
+void event(data_t *data);
+
 /* init.c */
 int initialise(int argc, const char *argv[], const char *env[]);
+
+/* loop.c */
+size_t loop(data_t *data);
+
+/* player.c */
+void init_player(data_t *data);
+
+/* window.c */
 size_t init_window(data_t *data);
+
 /* >------ Lib ------< */
 
 /* lenght */

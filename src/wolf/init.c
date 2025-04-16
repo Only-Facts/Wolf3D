@@ -19,6 +19,7 @@ static data_t *init_struct(void)
 
     if (init_window(data) == EXIT_ERROR)
         return NULL;
+    init_player(data);
     return data;
 }
 
