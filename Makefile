@@ -27,6 +27,8 @@ WOLF_FILES	=	init.c		\
 				draw.c		\
 				event.c		\
 				player.c	\
+				map.c		\
+				raycaster.c	\
 
 DIR_SRC		=	src/
 
@@ -52,7 +54,7 @@ OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
 				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
-CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system
+CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system -lm
 
 DFLAGS		=	-g -Wall -Wextra
 

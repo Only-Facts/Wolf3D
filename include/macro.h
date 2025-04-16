@@ -8,11 +8,10 @@
 #ifndef MACRO_H
     #define MACRO_H
     #include <SFML/Graphics.h>
-    #include <math.h>
 
     /* SCREEN */
-    #define WIDTH 800
-    #define HEIGHT 600
+    #define WIDTH 1300
+    #define HEIGHT 512
 
     /* Colors */
     #define BLACK sfColor_fromRGB(10, 10, 10)
@@ -23,6 +22,9 @@
     #define WHITE sfColor_fromRGB(220, 220, 220)
 
     /* PI */
-    #define PI 
+    #define PI 3.1415926535
+    #define P2 PI / 2
+    #define P3 3 * PI / 2
+    #define RAD 0.0174533
 
 #endif /* MACRO_H */

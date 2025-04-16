@@ -10,11 +10,11 @@
 
 size_t loop(data_t *data)
 {
-    while (sfRenderWindow_isOpen(data->window)){
-        sfRenderWindow_clear(data->window, GREY);
+    while (sfRenderWindow_isOpen(data->win)){
+        sfRenderWindow_clear(data->win, GREY);
         event(data);
-        draw_player(data);
-        sfRenderWindow_display(data->window);
+        draw(data);
+        sfRenderWindow_display(data->win);
     }
     return EXIT_SUCCESS;
 }

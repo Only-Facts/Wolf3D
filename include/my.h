@@ -32,7 +32,7 @@ enum {
 /* >------ Project ------< */
 
 /* draw.c */
-void draw_player(data_t *data);
+void draw(data_t *data);
 
 /* event.c */
 void event(data_t *data);
@@ -43,8 +43,16 @@ int initialise(int argc, const char *argv[], const char *env[]);
 /* loop.c */
 size_t loop(data_t *data);
 
+/* map.c */
+size_t init_map(data_t *data);
+
 /* player.c */
-void init_player(data_t *data);
+size_t init_player(data_t *data);
+
+/* raycaster.c */
+size_t init_ray(data_t *data);
+sfVector3f check_h_lines(data_t *data);
+sfVector3f check_v_lines(data_t *data);
 
 /* window.c */
 size_t init_window(data_t *data);

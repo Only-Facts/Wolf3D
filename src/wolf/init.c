@@ -9,7 +9,7 @@
 
 static void free_data(data_t *data)
 {
-    sfRenderWindow_destroy(data->window);
+    sfRenderWindow_destroy(data->win);
     free(data);
 }
 
@@ -17,9 +17,10 @@ static data_t *init_struct(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
-    if (init_window(data) == EXIT_ERROR)
+    if (init_window(data) == EXIT_ERROR || init_map(data) == EXIT_ERROR ||
+        init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR)
         return NULL;
-    init_player(data);
+    
     return data;
 }
 
