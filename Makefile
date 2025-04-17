@@ -19,7 +19,7 @@ LIB_FILES	=	write.c		\
 				file_reader.c	\
 				str_to_word_array.c
 
-DIR_WOLF		=	wolf/
+DIR_WOLF	=	wolf/
 
 WOLF_FILES	=	init.c		\
 				window.c	\
