@@ -35,6 +35,7 @@ enum {
 void draw(data_t *data);
 
 /* event.c */
+size_t init_keys(data_t *data);
 void event(data_t *data);
 
 /* init.c */

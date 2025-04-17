@@ -15,12 +15,24 @@
     #define MAP_S 10
 
 typedef struct {
+    int z;
+    int s;
+    int q;
+    int d;
+    int left;
+    int right;
+} keys_t;
+
+typedef struct {
     sfVector2f pos;
     sfVector2f delta;
     float angle;
     sfSprite *sprite;
     sfColor color;
     sfRectangleShape *texture;
+    sfVector2i ip;
+    sfVector2i ippo;
+    sfVector2i ipmo;
 } player_t;
 
 typedef struct {
@@ -37,6 +49,7 @@ typedef struct {
     sfRenderWindow *win;
     map_t *map;
     ray_t *r;
+    keys_t *keys;
 } data_t;
 
 #endif /* wolf3d */

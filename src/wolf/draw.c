@@ -112,6 +112,7 @@ static void draw_map(data_t *data)
             sfRectangleShape_setPosition(tile,
                 (sfVector2f){x * MAP_S, y * MAP_S});
             sfRenderWindow_drawRectangleShape(data->win, tile, NULL);
+            sfRectangleShape_destroy(tile);
         }
 }
 

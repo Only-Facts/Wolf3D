@@ -9,6 +9,12 @@
 
 static void free_data(data_t *data)
 {
+    sfRectangleShape_destroy(data->p->texture);
+    free(data->p);
+    free(data->r);
+    free(data->map->map);
+    free(data->map);
+    free(data->keys);
     sfRenderWindow_destroy(data->win);
     free(data);
 }
@@ -18,7 +24,8 @@ static data_t *init_struct(void)
     data_t *data = malloc(sizeof(data_t));
 
     if (init_window(data) == EXIT_ERROR || init_map(data) == EXIT_ERROR ||
-        init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR)
+        init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR ||
+        init_keys(data) == EXIT_ERROR)
         return NULL;
     return data;
 }
@@ -35,7 +42,10 @@ static size_t init_wolf(void)
 
 static size_t print_help(void)
 {
-    write_mess(read_file("assets/txt/help"));
+    char *mess = read_file("assets/txt/help");
+
+    write_mess(mess);
+    free(mess);
     return EXIT_HELP;
 }
 

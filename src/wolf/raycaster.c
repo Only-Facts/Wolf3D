@@ -58,7 +58,7 @@ sfVector3f check_h_lines(data_t *data)
     inith_r_o(data, &r, &o, &dof);
     while (dof < MAP_Y) {
         m = (sfVector2i){(int) r.x / MAP_S, (int) r.y / MAP_S};
-        if (m.x >= 0 && m.y >= 0 && m.y <= MAP_Y && m.x <= MAP_X &&
+        if (m.x >= 0 && m.y >= 0 && m.y < MAP_Y && m.x < MAP_X &&
             data->map->map[m.y][m.x] > 0) {
             r.z = sqrt(distance(data->p->pos, r));
             dof = MAP_Y;
@@ -103,7 +103,7 @@ sfVector3f check_v_lines(data_t *data)
     initv_r_o(data, &r, &o, &dof);
     while (dof <= MAP_X) {
         m = (sfVector2i){(int) r.x / MAP_S, (int) r.y / MAP_S};
-        if (m.x >= 0 && m.y >= 0 && m.y <= MAP_Y && m.x <= MAP_X &&
+        if (m.x >= 0 && m.y >= 0 && m.y < MAP_Y && m.x < MAP_X &&
             data->map->map[m.y][m.x] > 0) {
             r.z = sqrt(distance(data->p->pos, r));
             dof = MAP_X + 1;
