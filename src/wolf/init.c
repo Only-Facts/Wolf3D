@@ -20,7 +20,6 @@ static data_t *init_struct(void)
     if (init_window(data) == EXIT_ERROR || init_map(data) == EXIT_ERROR ||
         init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR)
         return NULL;
-    
     return data;
 }
 

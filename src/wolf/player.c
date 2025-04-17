@@ -11,9 +11,9 @@
 size_t init_player(data_t *data)
 {
     data->p = malloc(sizeof(player_t));
-
     data->p->color = GREEN;
-    data->p->pos = (sfVector2f){(double)MAP_X * MAP_S / 2, (double)MAP_Y * MAP_S / 2};
+    data->p->pos = (sfVector2f){(double)MAP_X * MAP_S / 2,
+        (double)MAP_Y * MAP_S / 2};
     data->p->texture = sfRectangleShape_create();
     data->p->angle = 0;
     data->p->delta = (sfVector2f){0.0, 0.0};

@@ -19,7 +19,6 @@ static void outline(data_t *data, size_t y, size_t x)
 static size_t empty_map(data_t *data)
 {
     data->map->map = malloc(sizeof(int *) * MAP_Y);
-
     if (!data->map->map)
         return EXIT_ERROR;
     for (size_t y = 0; y < MAP_Y; y++) {
@@ -33,7 +32,6 @@ static size_t empty_map(data_t *data)
 size_t init_map(data_t *data)
 {
     data->map = malloc(sizeof(map_t));
-
     if (!data->map || empty_map(data) == EXIT_ERROR)
         return EXIT_ERROR;
     data->map->map[1][2] = 1;
