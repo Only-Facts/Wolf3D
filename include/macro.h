@@ -19,9 +19,9 @@
     /* Colors */
     #define BLACK sfColor_fromRGB(10, 10, 10)
     #define GREY sfColor_fromRGB(50, 50, 50)
-    #define RED sfColor_fromRGB(100, 0, 0)
-    #define GREEN sfColor_fromRGB(0, 100, 0)
-    #define BLUE sfColor_fromRGB(0, 0, 100)
+    #define RED sfColor_fromRGB(100, 20, 30)
+    #define GREEN sfColor_fromRGB(20, 100, 20)
+    #define BLUE sfColor_fromRGB(20, 20, 100)
     #define WHITE sfColor_fromRGB(220, 220, 220)
 
     /* PI */

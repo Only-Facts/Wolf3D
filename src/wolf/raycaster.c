@@ -12,7 +12,6 @@
 size_t init_ray(data_t *data)
 {
     data->r = malloc(sizeof(ray_t));
-
     if (!data->r)
         return EXIT_ERROR;
     data->r->angle = data->p->angle;
@@ -63,8 +62,7 @@ sfVector3f check_h_lines(data_t *data)
             data->map->map[m.y][m.x] > 0) {
             r.z = sqrt(distance(data->p->pos, r));
             dof = MAP_Y;
-        }
-        else {
+        } else {
             r = (sfVector3f){o.x + r.x, o.y + r.y, r.z};
             dof++;
         }
@@ -109,8 +107,7 @@ sfVector3f check_v_lines(data_t *data)
             data->map->map[m.y][m.x] > 0) {
             r.z = sqrt(distance(data->p->pos, r));
             dof = MAP_X + 1;
-        }
-        else {
+        } else {
             r = (sfVector3f){o.x + r.x, o.y + r.y, r.z};
             dof++;
         }

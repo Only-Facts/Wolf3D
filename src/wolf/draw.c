@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macro.h"
+#include <stdio.h>
 #include <math.h>
 
 static sfVertexArray *create_line(sfVector2f a, sfVector2f b)
@@ -51,13 +52,30 @@ static void draw_walls(data_t *data, sfColor color, float dist, size_t i)
     create_wall(data, color, line, i);
 }
 
-static void draw_rays(data_t *data)
+static void draw_varray(data_t *data, float *dist, sfColor *color)
 {
     sfVertexArray *ray = NULL;
     sfVector3f v = {0, 0, 0};
     sfVector3f h = {0, 0, 0};
+
+    v = check_v_lines(data);
+    h = check_h_lines(data);
+    if (v.z < h.z) {
+        ray = create_line(data->p->pos, (sfVector2f){v.x, v.y});
+        *dist = v.z;
+    } else {
+        ray = create_line(data->p->pos, (sfVector2f){h.x, h.y});
+        *dist = h.z;
+        color->b -= 20;
+    }
+    sfRenderWindow_drawVertexArray(data->win, ray, NULL);
+    sfVertexArray_destroy(ray);
+}
+
+static void draw_rays(data_t *data)
+{
     float dist = 0;
-    sfColor color = {};
+    sfColor color = WHITE;
 
     data->r->angle = data->p->angle - RAD * 45;
     for (size_t i = 0; i < 90; i++) {
@@ -65,21 +83,10 @@ static void draw_rays(data_t *data)
             data->r->angle += 2 * PI;
         if (data->r->angle > 2 * PI)
             data->r->angle -= 2 * PI;
-        v = check_v_lines(data);
-        h = check_h_lines(data);
-        if (v.z < h.z) {
-            ray = create_line(data->p->pos, (sfVector2f){v.x, v.y});
-            dist = v.z;
-            color = BLUE;
-        } else {
-            ray = create_line(data->p->pos, (sfVector2f){h.x, h.y});
-            dist = h.z;
-            color = sfColor_fromRGB(0, 0, 80);
-        }
-        sfRenderWindow_drawVertexArray(data->win, ray, NULL);
-        sfVertexArray_destroy(ray);
+        draw_varray(data, &dist, &color);
         draw_walls(data, color, dist, i);
         data->r->angle += RAD;
+        color = WHITE;
     }
 }
 
@@ -102,7 +109,8 @@ static void draw_map(data_t *data)
             tile = sfRectangleShape_create();
             sfRectangleShape_setFillColor(tile, colors[data->map->map[y][x]]);
             sfRectangleShape_setSize(tile, (sfVector2f){MAP_S - 1, MAP_S - 1});
-            sfRectangleShape_setPosition(tile, (sfVector2f){x * MAP_S, y * MAP_S});
+            sfRectangleShape_setPosition(tile,
+                (sfVector2f){x * MAP_S, y * MAP_S});
             sfRenderWindow_drawRectangleShape(data->win, tile, NULL);
         }
 }
