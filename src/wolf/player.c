@@ -16,7 +16,6 @@ size_t init_player(data_t *data)
         (double)MAP_Y * MAP_S / 2};
     data->p->texture = sfRectangleShape_create();
     data->p->angle = 0;
-    data->p->delta = (sfVector2f){0.0, 0.0};
     if (!data->p->texture)
         return EXIT_ERROR;
     sfRectangleShape_setSize(data->p->texture, (sfVector2f){6, 6});

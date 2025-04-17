@@ -25,14 +25,18 @@ typedef struct {
 
 typedef struct {
     sfVector2f pos;
-    sfVector2f delta;
     float angle;
-    sfSprite *sprite;
+
     sfColor color;
     sfRectangleShape *texture;
+
     sfVector2i ip;
+
     sfVector2i ippo;
     sfVector2i ipmo;
+
+    sfVector2i jppo;
+    sfVector2i jpmo;
 } player_t;
 
 typedef struct {

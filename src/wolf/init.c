@@ -35,11 +35,13 @@ static data_t *init_struct(void)
 static size_t init_wolf(void)
 {
     data_t *data = init_struct();
+    int exit = EXIT_SUCCESS;
 
-    if (loop(data) == EXIT_ERROR)
+    if (!data)
         return EXIT_ERROR;
+    exit = loop(data);
     free_data(data);
-    return EXIT_SUCCESS;
+    return exit;
 }
 
 static size_t print_help(void)
