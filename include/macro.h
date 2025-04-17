@@ -9,6 +9,9 @@
     #define MACRO_H
     #include <SFML/Graphics.h>
 
+    /* TITLE */
+    #define TITLE "Your local low cost Wolfenstein 3D from 1992 ultimate"
+
     /* SCREEN */
     #define WIDTH 1300
     #define HEIGHT 512

@@ -31,13 +31,13 @@ static void inith_r_o(data_t *data, sfVector3f *r, sfVector2f *o, int *dof)
     float atan = -1 / tan(data->r->angle);
 
     if (data->r->angle > PI) {
-        r->y = (((double)(int)data->p->pos.y / MAP_S) * MAP_S) - 0.0001;
+        r->y = (((int)data->p->pos.y / MAP_S) * MAP_S) - 0.0001;
         r->x = (data->p->pos.y - r->y) * atan + data->p->pos.x;
         o->y = -MAP_S;
         o->x = -o->y * atan;
     }
     if (data->r->angle < PI) {
-        r->y = (((double)(int)data->p->pos.y / MAP_S) * MAP_S) + MAP_S;
+        r->y = (((int)data->p->pos.y / MAP_S) * MAP_S) + MAP_S;
         r->x = (data->p->pos.y - r->y) * atan + data->p->pos.x;
         o->y = MAP_S;
         o->x = -o->y * atan;
@@ -77,13 +77,13 @@ static void initv_r_o(data_t *data, sfVector3f *r, sfVector2f *o, int *dof)
     float ntan = -tan(data->r->angle);
 
     if (data->r->angle > P2 && data->r->angle < P3) {
-        r->x = (((double)(int)data->p->pos.x / MAP_S) * MAP_S) - 0.0001;
+        r->x = (((int)data->p->pos.x / MAP_S) * MAP_S) - 0.0001;
         r->y = (data->p->pos.x - r->x) * ntan + data->p->pos.y;
         o->x = -MAP_S;
         o->y = -o->x * ntan;
     }
     if (data->r->angle < P2 || data->r->angle > P3) {
-        r->x = (((double)(int)data->p->pos.x / MAP_S) * MAP_S) + MAP_S;
+        r->x = (((int)data->p->pos.x / MAP_S) * MAP_S) + MAP_S;
         r->y = (data->p->pos.x - r->x) * ntan + data->p->pos.y;
         o->x = MAP_S;
         o->y = -o->x * ntan;
