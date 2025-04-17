@@ -65,8 +65,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     container: epitechcontent/epitest-docker:latest
-    needs: check_coding_style
-    if: success()
+    needs: [check_coding_style, check_repository]
+    if: ${{ success() && needs.check_repository.outputs.same_repo == 'false' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -108,8 +108,8 @@ jobs:
 
   push_to_mirror:
     runs-on: ubuntu-latest
-    needs: [run_tests, check_repository]
-    if: ${{ github.event_name == 'push' && success() && needs.check_repository.outputs.same_repo == 'false'}}
+    needs: run_tests
+    if: ${{ github.event_name == 'push' && success() }}
     steps:
       - uses: actions/checkout@v4
         with:
