@@ -12,6 +12,8 @@ static void free_data(data_t *data)
     sfRectangleShape_destroy(data->p->texture);
     free(data->p);
     free(data->r);
+    for (size_t y = 0; y < MAP_Y; y++)
+        free(data->map->map[y]);
     free(data->map->map);
     free(data->map);
     free(data->keys);
