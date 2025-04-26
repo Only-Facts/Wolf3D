@@ -51,7 +51,7 @@ static char **transfer_str(const char *str, char **array, const char *sep)
     array = malloc(sizeof(char *) * (num_word + 2));
     if (!array)
         return NULL;
-    for (size_t i = 0; str[i] != '\0'; i++)
+    for (size_t i = 0; i < get_len(str); i++)
         if (check_sep(str[i], sep) != 1){
             w_size = word_len(&str[i], sep);
             array[j] = strn_dup(&str[i], w_size);

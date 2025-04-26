@@ -91,7 +91,7 @@ int str_cmp(const char *a, const char *b);
 int strn_cmp(char const *s1, char const *s2, const size_t n);
 
 /* slice */
-char **slice(const char *str, const char *separators, const size_t reverse);
+char **slice(const char *str, const char *separators);
 char **cut(const char *str, const char *sep);
 
 /* convert */
