@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macro.h"
+#include <stdio.h>
 
 static void outline(data_t *data, size_t y, size_t x)
 {
@@ -28,7 +29,6 @@ static size_t empty_map(data_t *data)
     }
     return EXIT_SUCCESS;
 }
-
 
 static int **arr_to_map(char **arr)
 {
@@ -75,5 +75,8 @@ size_t init_map(data_t *data)
     if (!data->map)
         return EXIT_ERROR;
     data->map->map = file_to_map("assets/txt/map");
+    for (int i = 0; data->map->map[i]; i++)
+        for (int j = 0; data->map->map[i][j]; j++)
+            printf("%i", data->map->map[i][j]);
     return EXIT_SUCCESS;
 }
