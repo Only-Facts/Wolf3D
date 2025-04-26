@@ -29,14 +29,51 @@ static size_t empty_map(data_t *data)
     return EXIT_SUCCESS;
 }
 
+
+static int **arr_to_map(char **arr)
+{
+    size_t map_size = get_array_len((const char **)arr);
+    int **map = malloc(sizeof(int *) * map_size + 1);
+    char c;
+
+    if (!arr)
+        return NULL;
+    for (size_t i = 0; i < map_size; i++) {
+        map[i] = malloc(sizeof(int) * get_len(arr[i]));
+        for (size_t j = 0; arr[i][j]; j++) {
+            c = arr[i][j];
+            map[i][j] = atoi(&c);
+            if (map[i][j] < 0)
+                return NULL;
+        }
+    }
+    free_arr(arr);
+    return map;
+}
+
+static int ** file_to_map(const char *filepath)
+{
+    char *buffer = NULL;
+    char **arr = NULL;
+    int **map = NULL;
+
+    if (!filepath)
+        return NULL;
+    buffer = read_file(filepath);\
+    if (!buffer)
+        return NULL;
+    arr = cut(buffer, "\n");
+    if (!arr)
+        return NULL;
+    map = arr_to_map(arr);
+    return map;
+}
+
 size_t init_map(data_t *data)
 {
     data->map = malloc(sizeof(map_t));
-    if (!data->map || empty_map(data) == EXIT_ERROR)
+    if (!data->map)
         return EXIT_ERROR;
-    data->map->map[1][2] = 1;
-    data->map->map[2][2] = 1;
-    data->map->map[3][2] = 1;
-    data->map->map[5][5] = 1;
+    data->map->map = file_to_map("assets/txt/map");
     return EXIT_SUCCESS;
 }

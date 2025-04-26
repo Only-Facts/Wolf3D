@@ -92,6 +92,7 @@ int strn_cmp(char const *s1, char const *s2, const size_t n);
 
 /* slice */
 char **slice(const char *str, const char *separators, const size_t reverse);
+char **cut(const char *str, const char *sep);
 
 /* convert */
 int str_to_int(const char *str);
@@ -103,4 +104,8 @@ char *read_file(const char *path);
 /* pointers */
 void swap_int(int *a, int *b);
 void swap_str(char **a, char **b);
+
+/* free */
+void free_arr(char **arr);
+
 #endif
