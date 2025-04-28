@@ -11,7 +11,6 @@ on:
 env:
   SOURCE_DIR: src
   BANNED_FUNC_FILE: assets/txt/banned
-  PERSONAL_URL: git@github.com:YetAnotherMechanicusEnjoyer/Wolf3D.git
   MIRROR_URL: git@github.com:EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge.git
   MIRROR_REPO: EpitechPGEPromo2029/G-ING-210-BDX-2-1-wolf3d-raphael.farge
   EXECUTABLES: wolf3d
@@ -156,9 +155,4 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url: ${{env.MIRROR_URL}}
-          ssh_private_key: ${{secrets.GIT_SSH_PRIVATE_KEY}}
-
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url: ${{env.PERSONAL_URL}}
           ssh_private_key: ${{secrets.GIT_SSH_PRIVATE_KEY}}
