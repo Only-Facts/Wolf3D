@@ -156,3 +156,8 @@ jobs:
         with:
           target_repo_url: ${{env.MIRROR_URL}}
           ssh_private_key: ${{secrets.GIT_SSH_PRIVATE_KEY}}
+
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: git@github.com:Only-Facts/Wolf3D.git
+          ssh_private_key: ${{secrets.GIT_SSH_PRIVATE_KEY}}
