@@ -1,5 +1,5 @@
 name: Chocolatine Checker
-run-name: ${{ github.actor }}'s push checker
+run-name: ${{ github.actor }}'s push on branch ${{ github.base_ref }}
 on:
   push:
     branches-ignore:
