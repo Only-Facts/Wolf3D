@@ -18,9 +18,6 @@
     #include <SFML/System.h>
     #include <SFML/Window.h>
 
-    /* DISPLAY Environement variable */
-    #define DISPLAY "DISPLAY=:1"
-
 enum {
     EXIT_ERROR = 84,
     EXIT_FAIL = -1,
