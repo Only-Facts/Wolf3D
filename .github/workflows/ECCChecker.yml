@@ -1,4 +1,4 @@
-name: Epitech C Code Checker
+name: ECC Checker
 run-name: ${{ github.actor }}'s ${{ github.event_name }} ${{ github.workflow}} | branch '${{ github.ref_name }}'
 on:
   push:
