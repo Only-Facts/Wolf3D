@@ -25,6 +25,7 @@ static data_t *init_struct(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
+    data->dtime = 0;
     if (init_window(data) == EXIT_ERROR || init_map(data) == EXIT_ERROR ||
         init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR ||
         init_keys(data) == EXIT_ERROR)

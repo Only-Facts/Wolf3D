@@ -47,15 +47,15 @@ static void forward_backward(data_t *data)
 {
     if (data->keys->z) {
         if (data->map->map[data->p->ip.y][data->p->ippo.x] == 0)
-            data->p->pos.x += cos(data->p->angle);
+            data->p->pos.x += cos(data->p->angle) * data->dtime;
         if (data->map->map[data->p->ippo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle);
+            data->p->pos.y += sin(data->p->angle) * data->dtime;
     }
     if (data->keys->s) {
         if (data->map->map[data->p->ip.y][data->p->ipmo.x] == 0)
-            data->p->pos.x -= cos(data->p->angle);
+            data->p->pos.x -= cos(data->p->angle) * data->dtime;
         if (data->map->map[data->p->ipmo.y][data->p->ip.x] == 0)
-            data->p->pos.y -= sin(data->p->angle);
+            data->p->pos.y -= sin(data->p->angle) * data->dtime;
     }
 }
 
@@ -63,15 +63,15 @@ static void left_right(data_t *data)
 {
     if (data->keys->d) {
         if (data->map->map[data->p->ip.y][data->p->jppo.x] == 0)
-            data->p->pos.x += cos(data->p->angle + 90 * RAD);
+            data->p->pos.x += cos(data->p->angle + 90 * RAD) * data->dtime;
         if (data->map->map[data->p->jppo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle + 90 * RAD);
+            data->p->pos.y += sin(data->p->angle + 90 * RAD) * data->dtime;
     }
     if (data->keys->q) {
         if (data->map->map[data->p->ip.y][data->p->jpmo.x] == 0)
-            data->p->pos.x += cos(data->p->angle - 90 * RAD);
+            data->p->pos.x += cos(data->p->angle - 90 * RAD) * data->dtime;
         if (data->map->map[data->p->jpmo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle - 90 * RAD);
+            data->p->pos.y += sin(data->p->angle - 90 * RAD) * data->dtime;
     }
 }
 

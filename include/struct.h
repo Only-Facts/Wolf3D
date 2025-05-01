@@ -54,6 +54,7 @@ typedef struct {
     map_t *map;
     ray_t *r;
     keys_t *keys;
+    double dtime;
 } data_t;
 
 #endif /* wolf3d */
