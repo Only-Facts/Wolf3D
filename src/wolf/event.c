@@ -32,12 +32,12 @@ size_t init_keys(data_t *data)
 static void update_camera(data_t *data)
 {
     if (data->keys->right) {
-        data->p->angle += 0.06;
+        data->p->angle += 0.06 * data->dtime;
         if (data->p->angle > 2 * PI)
             data->p->angle -= 2 * PI;
     }
     if (data->keys->left) {
-        data->p->angle -= 0.06;
+        data->p->angle -= 0.06 * data->dtime;
         if (data->p->angle < 0)
             data->p->angle += 2 * PI;
     }
@@ -103,11 +103,11 @@ static void check_walls_lr(data_t *data)
     sfVector2f p = {data->p->pos.x, data->p->pos.y};
 
     if (cos(data->p->angle + 90 * RAD) < 0)
-        o.x = -4;
-    o.x += 2;
+        o.x = -8;
+    o.x += 4;
     if (sin(data->p->angle + 90 * RAD) < 0)
-        o.y = -4;
-    o.y += 2;
+        o.y = -8;
+    o.y += 4;
     data->p->jppo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
         (p.y + o.y) / (float)MAP_S};
     data->p->jpmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,
@@ -121,11 +121,11 @@ static void check_walls(data_t *data)
 
     data->p->ip = (sfVector2i){p.x / (float)MAP_S, p.y / (float)MAP_S};
     if (cos(data->p->angle) < 0)
-        o.x = -4;
-    o.x += 2;
+        o.x = -8;
+    o.x += 4;
     if (sin(data->p->angle) < 0)
-        o.y = -4;
-    o.y += 2;
+        o.y = -8;
+    o.y += 4;
     data->p->ippo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
         (p.y + o.y) / (float)MAP_S};
     data->p->ipmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,
