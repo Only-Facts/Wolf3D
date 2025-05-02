@@ -66,7 +66,7 @@ static sfBool is_button_clicked(button_t *button, sfVector2i mouse_pos,
 
     return (world_pos.x >= bounds.left &&
             world_pos.x <= bounds.left + bounds.width &&
-            world_pos.y >= bounds.top && 
+            world_pos.y >= bounds.top &&
             world_pos.y <= bounds.top + bounds.height);
 }
 
@@ -116,7 +116,8 @@ static void run_menu_loop(data_t *data, button_t *button)
 size_t display_menu(data_t *data)
 {
     button_t *play_button = create_button("assets/img/play.png",
-        (sfVector2f){400, 0});   
+        (sfVector2f){400, 0});
+
     if (!play_button) {
         write_error("Error: Could not create play button\n");
         return EXIT_ERROR;
