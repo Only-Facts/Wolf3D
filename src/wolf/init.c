@@ -54,31 +54,13 @@ static size_t print_help(void)
     return EXIT_HELP;
 }
 
-static size_t check_env(const char *env[])
-{
-    char *display = read_file("assets/txt/display");
-
-    if (!display)
-        return EXIT_ERROR;
-    for (size_t i = 0; env[i]; i++)
-        if (str_cmp(env[i], display) == 0 &&
-        get_len(env[i]) == get_len(display) - 1) {
-            free(display);
-            return EXIT_SUCCESS;
-        }
-    free(display);
-    return EXIT_ERROR;
-}
-
-static size_t handle_error(int argc, const char *argv[], const char *env[])
+static size_t handle_error(int argc, const char *argv[])
 {
     if (argv && argv[1] && (str_cmp(argv[1], "-h") == 0 ||
         str_cmp(argv[1], "--help") == 0) && get_len(argv[1]) > 0)
         return print_help();
-    if (check_env(env) == EXIT_ERROR)
-        return write_error("Error 84: Bad DISPLAY environement variable.\n\n"
-        "If not, create a file 'assets/txt/display' where you put your DISPLAY"
-        "env variable.\n\te.g. : 'DISPLAY=:1'\n");
+    if (!getenv("DISPLAY"))
+        return write_error("Error 84: Bad DISPLAY environement variable.\n");
     if (argc > 1)
         return write_error("Error 84: Bad usage!\n\n"
         "Usage: ./wolf3d [OPTIONS]\n"
@@ -86,9 +68,9 @@ static size_t handle_error(int argc, const char *argv[], const char *env[])
     return EXIT_SUCCESS;
 }
 
-int initialise(int argc, const char *argv[], const char *env[])
+int initialise(int argc, const char *argv[])
 {
-    switch (handle_error(argc, argv, env)) {
+    switch (handle_error(argc, argv)) {
         case EXIT_HELP:
             return EXIT_SUCCESS;
         case EXIT_ERROR:

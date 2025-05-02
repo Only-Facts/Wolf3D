@@ -36,7 +36,7 @@ size_t init_keys(data_t *data);
 void event(data_t *data);
 
 /* init.c */
-int initialise(int argc, const char *argv[], const char *env[]);
+int initialise(int argc, const char *argv[]);
 
 /* loop.c */
 size_t loop(data_t *data);
