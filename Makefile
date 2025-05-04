@@ -31,6 +31,7 @@ WOLF_FILES	=	init.c		\
 				player.c	\
 				map.c		\
 				raycaster.c	\
+				fps.c		\
 
 DIR_SRC		=	src/
 

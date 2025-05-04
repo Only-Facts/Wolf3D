@@ -16,6 +16,9 @@
     #define WIDTH 1300
     #define HEIGHT 512
 
+    /* FONT */
+    #define FONT sfFont_createFromFile("assets/fonts/Fira.ttf")
+
     /* Colors */
     #define BLACK sfColor_fromRGB(10, 10, 10)
     #define GREY sfColor_fromRGB(50, 50, 50)

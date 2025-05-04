@@ -35,6 +35,9 @@ void draw(data_t *data);
 size_t init_keys(data_t *data);
 void event(data_t *data);
 
+/* fps.c */
+void draw_fps(sfRenderWindow *win, double fps);
+
 /* init.c */
 int initialise(int argc, const char *argv[]);
 
