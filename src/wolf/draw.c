@@ -10,15 +10,6 @@
 #include <stdio.h>
 #include <math.h>
 
-static float fix_ang(float a)
-{
-    if (a > 359)
-        a -= 360;
-    if (a < 0)
-        a += 360;
-    return a;
-}
-
 static sfVertexArray *create_line(sfVector2f a, sfVector2f b)
 {
     sfVertexArray *va = sfVertexArray_create();
@@ -100,6 +91,7 @@ static void draw_varray(data_t *data, int *shade)
         ray = create_line(data->p->pos, (sfVector2f){v.x, v.y});
         data->r->dist = v.z;
         data->r->r = (sfVector2f){v.x, v.y};
+        *shade = 0;
     } else {
         ray = create_line(data->p->pos, (sfVector2f){h.x, h.y});
         data->r->dist = h.z;
