@@ -35,5 +35,7 @@ size_t scenes(data_t *data, const double fps)
         menu_scene(data);
     if (data->scenes == GAME)
         game_scene(data, fps);
+    if (data->scenes == PAUSE)
+        menu_scene(data);
     return EXIT_SUCCESS;
 }

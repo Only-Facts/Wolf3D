@@ -93,7 +93,7 @@ static void check_window_events(data_t *data, sfEvent event)
 {
     if (!data || !data->win)
         return;
-    if (event.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
+    if (event.type == sfEvtClosed)
         sfRenderWindow_close(data->win);
 }
 

@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macro.h"
+#include <SFML/Window/Keyboard.h>
 #include <math.h>
 
 static void reset_keys(data_t *data)
@@ -139,8 +140,8 @@ void event(data_t *data)
     sfRenderWindow_pollEvent(data->win, &event);
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(data->win);
-    else if (sfKeyboard_isKeyPressed(sfKeyM))
-        data->scenes = MENU;
+    if (sfKeyboard_isKeyPressed(sfKeyEscape))
+        data->scenes = PAUSE;
     update_keys(data);
     check_walls(data);
     update_movement(data);

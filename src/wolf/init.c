@@ -33,7 +33,7 @@ static size_t init_img(data_t *data)
     data->img->wall = sfImage_createFromFile("assets/img/wall.png");
     if (!data->img->wall)
         return EXIT_ERROR;
-    data->img->wall_arr = malloc(sizeof(sfColor) * (32 * 32));
+    data->img->wall_arr = malloc(sizeof(sfColor) * (32 * 32 + 1));
     if (!data->img->wall_arr)
         return EXIT_ERROR;
     for (size_t y = 0; y < 32; y++)
