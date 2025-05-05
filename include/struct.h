@@ -80,4 +80,12 @@ typedef struct {
     sfVector2f position;
 } button_t;
 
+typedef struct {
+    button_t *play;
+    button_t *options;
+    button_t *quit;
+    sfSprite *background;
+    sfTexture *bg_texture;
+} menu_t;
+
 #endif /* wolf3d */

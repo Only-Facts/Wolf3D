@@ -52,6 +52,12 @@ size_t init_map(data_t *data);
 
 /* menu.c */
 size_t display_menu(data_t *data);
+sfTexture *load_button_texture(const char *path);
+sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos);
+button_t *create_button(const char *path, sfVector2f pos);
+void destroy_button(button_t *button);
+void draw_title(sfRenderWindow *win);
+sfBool create_background(menu_t *menu);
 
 /* player.c */
 size_t init_player(data_t *data);
