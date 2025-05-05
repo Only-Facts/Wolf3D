@@ -58,6 +58,7 @@ button_t *create_button(const char *path, sfVector2f pos);
 void destroy_button(button_t *button);
 void draw_title(sfRenderWindow *win);
 sfBool create_background(menu_t *menu);
+void destroy_menu(menu_t *menu);
 
 /* player.c */
 size_t init_player(data_t *data);

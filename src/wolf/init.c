@@ -9,6 +9,8 @@
 
 static void free_data(data_t *data)
 {
+    if (data->menu)
+        destroy_menu(data->menu);
     sfRectangleShape_destroy(data->p->texture);
     free(data->p);
     free(data->r);
@@ -50,6 +52,7 @@ static data_t *init_struct(void)
 
     data->dtime = 0;
     data->scenes = MENU;
+    data->menu = NULL;
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data))
         return NULL;

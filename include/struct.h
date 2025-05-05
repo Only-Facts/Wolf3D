@@ -64,17 +64,6 @@ typedef struct {
 } img_t;
 
 typedef struct {
-    enum scenes scenes;
-    player_t *p;
-    sfRenderWindow *win;
-    map_t *map;
-    ray_t *r;
-    keys_t *keys;
-    img_t *img;
-    double dtime;
-} data_t;
-
-typedef struct {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f position;
@@ -87,5 +76,17 @@ typedef struct {
     sfSprite *background;
     sfTexture *bg_texture;
 } menu_t;
+
+typedef struct {
+    enum scenes scenes;
+    player_t *p;
+    sfRenderWindow *win;
+    map_t *map;
+    ray_t *r;
+    keys_t *keys;
+    img_t *img;
+    menu_t *menu;
+    double dtime;
+} data_t;
 
 #endif /* wolf3d */

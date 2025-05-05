@@ -42,7 +42,7 @@ static menu_t *create_menu(void)
     return menu;
 }
 
-static void destroy_menu(menu_t *menu)
+void destroy_menu(menu_t *menu)
 {
     if (!menu)
         return;
@@ -113,7 +113,7 @@ static void check_button_events(data_t *data, sfEvent event,
         data->scenes = GAME;
     if (menu->options && is_button_clicked(menu->options,
         mouse_pos, data->win)) {
-        data->scenes = GAME;
+        data->scenes = SETTINGS;
     }
     if (menu->quit && is_button_clicked(menu->quit, mouse_pos, data->win))
         sfRenderWindow_close(data->win);
@@ -131,26 +131,18 @@ static void handle_menu_events(data_t *data, menu_t *menu)
     }
 }
 
-static void run_menu_loop(data_t *data, menu_t *menu)
-{
-    if (!data || !menu || !data->win)
-        return;
-    handle_menu_events(data, menu);
-    draw_menu(data->win, menu);
-}
-
 size_t display_menu(data_t *data)
 {
-    menu_t *menu;
-
     if (!data || !data->win)
         return EXIT_ERROR;
-    menu = create_menu();
-    if (!menu) {
-        write_error("Error: Could not create menu\n");
-        return EXIT_ERROR;
+    if (data->menu == NULL) {
+        data->menu = create_menu();
+        if (!data->menu) {
+            write_error("Error: Could not create menu\n");
+            return EXIT_ERROR;
+        }
     }
-    run_menu_loop(data, menu);
-    destroy_menu(menu);
+    handle_menu_events(data, data->menu);
+    draw_menu(data->win, data->menu);
     return EXIT_SUCCESS;
 }
