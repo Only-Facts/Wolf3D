@@ -21,13 +21,36 @@ static void free_data(data_t *data)
     free(data);
 }
 
+static size_t init_img(data_t *data)
+{
+    size_t index = 0;
+
+    data->img = malloc(sizeof(img_t));
+    if (!data->img)
+        return EXIT_ERROR;
+    data->img->wall = sfImage_createFromFile("assets/img/wall.png");
+    if (!data->img->wall)
+        return EXIT_ERROR;
+    data->img->wall_arr = malloc(sizeof(sfColor) * (32 * 32));
+    if (!data->img->wall_arr)
+        return EXIT_ERROR;
+    for (size_t y = 0; y < 32; y++)
+        for (size_t x = 0; x < 32; x++) {
+            data->img->wall_arr[index] =
+                sfImage_getPixel(data->img->wall, x, y);
+            index++;
+        }
+    data->img->wall_arr[index] = (sfColor){-1, -1, -1, -1};
+    return EXIT_SUCCESS;
+}
+
 static data_t *init_struct(void)
 {
     data_t *data = malloc(sizeof(data_t));
 
-    if (init_window(data) == EXIT_ERROR || init_map(data) == EXIT_ERROR ||
-        init_player(data) == EXIT_ERROR || init_ray(data) == EXIT_ERROR ||
-        init_keys(data) == EXIT_ERROR)
+    data->dtime = 0;
+    if (init_window(data) || init_map(data) || init_player(data) ||
+        init_ray(data) || init_keys(data) || init_img(data))
         return NULL;
     return data;
 }

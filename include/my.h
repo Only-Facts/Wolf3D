@@ -18,9 +18,6 @@
     #include <SFML/System.h>
     #include <SFML/Window.h>
 
-    /* DISPLAY Environement variable */
-    #define DISPLAY "DISPLAY=:1"
-
 enum {
     EXIT_ERROR = 84,
     EXIT_FAIL = -1,
@@ -37,6 +34,9 @@ void draw(data_t *data);
 /* event.c */
 size_t init_keys(data_t *data);
 void event(data_t *data);
+
+/* fps.c */
+void draw_fps(sfRenderWindow *win, double fps);
 
 /* init.c */
 int initialise(int argc, const char *argv[]);
@@ -94,7 +94,8 @@ int str_cmp(const char *a, const char *b);
 int strn_cmp(char const *s1, char const *s2, const size_t n);
 
 /* slice */
-char **slice(const char *str, const char *separators, const size_t reverse);
+char **slice(const char *str, const char *separators);
+char **cut(const char *str, const char *sep);
 
 /* convert */
 int str_to_int(const char *str);
@@ -106,4 +107,8 @@ char *read_file(const char *path);
 /* pointers */
 void swap_int(int *a, int *b);
 void swap_str(char **a, char **b);
+
+/* free */
+void free_arr(char **arr);
+
 #endif
