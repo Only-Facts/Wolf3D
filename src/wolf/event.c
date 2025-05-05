@@ -7,7 +7,6 @@
 
 #include "my.h"
 #include "macro.h"
-#include <SFML/Window/Keyboard.h>
 #include <math.h>
 
 static void reset_keys(data_t *data)

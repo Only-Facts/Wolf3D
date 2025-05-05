@@ -46,7 +46,14 @@ typedef struct {
 
 typedef struct {
     float angle;
+    sfVector2f r;
+    float dist;
 } ray_t;
+
+typedef struct {
+    sfImage *wall;
+    sfColor *wall_arr;
+} img_t;
 
 typedef struct {
     player_t *p;
@@ -54,6 +61,7 @@ typedef struct {
     map_t *map;
     ray_t *r;
     keys_t *keys;
+    img_t *img;
     double dtime;
 } data_t;
 
