@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macro.h"
+#include <SFML/Window/Event.h>
 #include <math.h>
 
 static void reset_keys(data_t *data)
@@ -143,7 +144,8 @@ void event(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyL) && !status){
         data->flash *= -1;
         status = 1;
-    } else
+    }
+    if (event.type == sfEvtKeyReleased)
         status = 0;
     update_keys(data);
     check_walls(data);
