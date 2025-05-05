@@ -65,4 +65,10 @@ typedef struct {
     double dtime;
 } data_t;
 
+typedef struct {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f position;
+} button_t;
+
 #endif /* wolf3d */

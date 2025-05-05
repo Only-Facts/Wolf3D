@@ -47,6 +47,9 @@ size_t loop(data_t *data);
 /* map.c */
 size_t init_map(data_t *data);
 
+/* menu.c */
+size_t display_menu(data_t *data);
+
 /* player.c */
 size_t init_player(data_t *data);
 

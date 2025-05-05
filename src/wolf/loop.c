@@ -27,6 +27,8 @@ size_t loop(data_t *data)
     struct timeval t1 = {0};
     double fps = 0;
 
+    if (display_menu(data) == EXIT_ERROR)
+        return EXIT_ERROR;
     while (sfRenderWindow_isOpen(data->win)){
         gettimeofday(&t1, NULL);
         sfRenderWindow_clear(data->win, GREY);
