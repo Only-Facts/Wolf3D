@@ -7,7 +7,6 @@
 
 #include "my.h"
 #include "struct.h"
-#include <cstdlib>
 
 static size_t game_scene(data_t *data, double fps)
 {
