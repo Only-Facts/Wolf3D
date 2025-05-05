@@ -7,8 +7,6 @@
 
 #include "my.h"
 #include "macro.h"
-#include "struct.h"
-#include <SFML/Graphics/RenderWindow.h>
 
 static void draw_background(sfRenderWindow *win)
 {
@@ -17,7 +15,7 @@ static void draw_background(sfRenderWindow *win)
     if (!bg)
         return;
     sfRectangleShape_setSize(bg, (sfVector2f){WIDTH, HEIGHT});
-    sfRectangleShape_setFillColor(bg, BLUE);
+    sfRectangleShape_setFillColor(bg, BLACK);
     sfRenderWindow_drawRectangleShape(win, bg, NULL);
     sfRectangleShape_destroy(bg);
 }
@@ -25,9 +23,9 @@ static void draw_background(sfRenderWindow *win)
 static menu_t *create_menu(void)
 {
     menu_t *menu = malloc(sizeof(menu_t));
-    sfVector2f pos_play = {WIDTH / 2 - 250, HEIGHT / 2 + -150};
-    sfVector2f pos_options = {WIDTH / 2 - 600, HEIGHT / 2 + -150};
-    sfVector2f pos_quit = {WIDTH / 2 + 100, HEIGHT / 2 - 150};
+    sfVector2f pos_play = {WIDTH / 2.0 - 250, HEIGHT / 2.0 + -150};
+    sfVector2f pos_options = {WIDTH / 2.0 - 600, HEIGHT / 2.0 + -150};
+    sfVector2f pos_quit = {WIDTH / 2.0 + 100, HEIGHT / 2.0 - 150};
 
     if (!menu)
         return NULL;

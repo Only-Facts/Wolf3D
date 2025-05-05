@@ -6,14 +6,7 @@
 */
 
 #include "my.h"
-#include "struct.h"
 #include "macro.h"
-#include <stdio.h>
-
-sfTexture *load_button_texture(const char *path)
-{
-    return sfTexture_createFromFile(path, NULL);
-}
 
 sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos)
 {
@@ -35,7 +28,7 @@ button_t *create_button(const char *path, sfVector2f pos)
     button->position = pos;
     button->sprite = NULL;
     button->texture = NULL;
-    button->texture = load_button_texture(path);
+    button->texture = sfTexture_createFromFile(path, NULL);
     if (!button->texture) {
         free(button);
         return NULL;
@@ -64,7 +57,7 @@ void draw_title(sfRenderWindow *win)
 {
     sfText *title = sfText_create();
     sfFont *font = FONT;
-    sfVector2f pos = {WIDTH / 2 - 100, HEIGHT / 2 - 200};
+    sfVector2f pos = {WIDTH / 2.0 - 100, HEIGHT / 2.0 - 200};
 
     if (!title || !font)
         return;
