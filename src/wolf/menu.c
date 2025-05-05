@@ -8,6 +8,7 @@
 #include "my.h"
 #include "macro.h"
 #include "struct.h"
+#include <SFML/Graphics/RenderWindow.h>
 
 static sfTexture *load_button_texture(const char *path)
 {
@@ -105,12 +106,10 @@ static void run_menu_loop(data_t *data, button_t *button)
 {
     sfBool in_menu = sfTrue;
 
-    while (sfRenderWindow_isOpen(data->win) && in_menu) {
-        sfRenderWindow_clear(data->win, GREY);
-        handle_menu_events(data, button, &in_menu);
-        sfRenderWindow_drawSprite(data->win, button->sprite, NULL);
-        sfRenderWindow_display(data->win);
-    }
+    handle_menu_events(data, button, &in_menu);
+    sfRenderWindow_drawSprite(data->win, button->sprite, NULL);
+    if (in_menu == sfFalse)
+        data->scenes = GAME;
 }
 
 size_t display_menu(data_t *data)
