@@ -28,6 +28,9 @@ enum {
 
 /* >------ Project ------< */
 
+/* menu.c */
+size_t display_menu(data_t *data);
+
 /* draw.c */
 void draw(data_t *data);
 
