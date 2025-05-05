@@ -27,14 +27,11 @@ size_t loop(data_t *data)
     struct timeval t1 = {0};
     double fps = 0;
 
-    if (display_menu(data) == EXIT_ERROR)
-        return EXIT_ERROR;
     while (sfRenderWindow_isOpen(data->win)){
         gettimeofday(&t1, NULL);
         sfRenderWindow_clear(data->win, GREY);
-        event(data);
-        draw(data);
-        draw_fps(data->win, fps);
+        if (scenes(data, fps) == EXIT_ERROR)
+            return EXIT_ERROR;
         sfRenderWindow_display(data->win);
         fps = update_dtime(data, &t1);
     }

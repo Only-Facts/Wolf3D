@@ -61,6 +61,9 @@ size_t init_ray(data_t *data);
 sfVector3f check_h_lines(data_t *data);
 sfVector3f check_v_lines(data_t *data);
 
+/* scenes */
+size_t scenes(data_t *data, const double fps);
+
 /* window.c */
 size_t init_window(data_t *data);
 

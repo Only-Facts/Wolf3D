@@ -14,6 +14,14 @@
     #define MAP_X 16
     #define MAP_S 10
 
+enum scenes {
+    MENU,
+    GAME,
+    SETTINGS,
+    PAUSE,
+    END,
+};
+
 typedef struct {
     int z;
     int s;
@@ -56,6 +64,7 @@ typedef struct {
 } img_t;
 
 typedef struct {
+    enum scenes scenes;
     player_t *p;
     sfRenderWindow *win;
     map_t *map;
