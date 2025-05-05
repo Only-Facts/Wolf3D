@@ -7,7 +7,6 @@
 
 #include "my.h"
 #include "macro.h"
-#include <SFML/Window/Keyboard.h>
 #include <math.h>
 
 static void reset_keys(data_t *data)
@@ -32,12 +31,12 @@ size_t init_keys(data_t *data)
 static void update_camera(data_t *data)
 {
     if (data->keys->right) {
-        data->p->angle += 0.06;
+        data->p->angle += 0.06 * data->dtime;
         if (data->p->angle > 2 * PI)
             data->p->angle -= 2 * PI;
     }
     if (data->keys->left) {
-        data->p->angle -= 0.06;
+        data->p->angle -= 0.06 * data->dtime;
         if (data->p->angle < 0)
             data->p->angle += 2 * PI;
     }
@@ -47,15 +46,15 @@ static void forward_backward(data_t *data)
 {
     if (data->keys->z) {
         if (data->map->map[data->p->ip.y][data->p->ippo.x] == 0)
-            data->p->pos.x += cos(data->p->angle);
+            data->p->pos.x += cos(data->p->angle) * data->dtime;
         if (data->map->map[data->p->ippo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle);
+            data->p->pos.y += sin(data->p->angle) * data->dtime;
     }
     if (data->keys->s) {
         if (data->map->map[data->p->ip.y][data->p->ipmo.x] == 0)
-            data->p->pos.x -= cos(data->p->angle);
+            data->p->pos.x -= cos(data->p->angle) * data->dtime;
         if (data->map->map[data->p->ipmo.y][data->p->ip.x] == 0)
-            data->p->pos.y -= sin(data->p->angle);
+            data->p->pos.y -= sin(data->p->angle) * data->dtime;
     }
 }
 
@@ -63,15 +62,15 @@ static void left_right(data_t *data)
 {
     if (data->keys->d) {
         if (data->map->map[data->p->ip.y][data->p->jppo.x] == 0)
-            data->p->pos.x += cos(data->p->angle + 90 * RAD);
+            data->p->pos.x += cos(data->p->angle + 90 * RAD) * data->dtime;
         if (data->map->map[data->p->jppo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle + 90 * RAD);
+            data->p->pos.y += sin(data->p->angle + 90 * RAD) * data->dtime;
     }
     if (data->keys->q) {
         if (data->map->map[data->p->ip.y][data->p->jpmo.x] == 0)
-            data->p->pos.x += cos(data->p->angle - 90 * RAD);
+            data->p->pos.x += cos(data->p->angle - 90 * RAD) * data->dtime;
         if (data->map->map[data->p->jpmo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle - 90 * RAD);
+            data->p->pos.y += sin(data->p->angle - 90 * RAD) * data->dtime;
     }
 }
 
@@ -103,11 +102,11 @@ static void check_walls_lr(data_t *data)
     sfVector2f p = {data->p->pos.x, data->p->pos.y};
 
     if (cos(data->p->angle + 90 * RAD) < 0)
-        o.x = -4;
-    o.x += 2;
+        o.x = -8;
+    o.x += 4;
     if (sin(data->p->angle + 90 * RAD) < 0)
-        o.y = -4;
-    o.y += 2;
+        o.y = -8;
+    o.y += 4;
     data->p->jppo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
         (p.y + o.y) / (float)MAP_S};
     data->p->jpmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,
@@ -121,11 +120,11 @@ static void check_walls(data_t *data)
 
     data->p->ip = (sfVector2i){p.x / (float)MAP_S, p.y / (float)MAP_S};
     if (cos(data->p->angle) < 0)
-        o.x = -4;
-    o.x += 2;
+        o.x = -8;
+    o.x += 4;
     if (sin(data->p->angle) < 0)
-        o.y = -4;
-    o.y += 2;
+        o.y = -8;
+    o.y += 4;
     data->p->ippo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
         (p.y + o.y) / (float)MAP_S};
     data->p->ipmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,

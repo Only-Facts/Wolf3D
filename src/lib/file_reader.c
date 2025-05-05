@@ -8,6 +8,7 @@
 #include "my.h"
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 char *read_file(const char *path)
 {
@@ -17,7 +18,7 @@ char *read_file(const char *path)
 
     if (fd == -1 || stat(path, &st) == -1)
         return NULL;
-    buffer = malloc(sizeof(char) * st.st_size);
+    buffer = malloc(sizeof(char) * (st.st_size + 1));
     read(fd, buffer, st.st_size);
     buffer[st.st_size] = '\0';
     close(fd);

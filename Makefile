@@ -17,6 +17,8 @@ LIB_FILES	=	write.c		\
 				convert.c	\
 				swap.c		\
 				file_reader.c	\
+				free.c	\
+				cut.c	\
 				str_to_word_array.c
 
 DIR_WOLF	=	wolf/
@@ -29,6 +31,7 @@ WOLF_FILES	=	init.c		\
 				player.c	\
 				map.c		\
 				raycaster.c	\
+				fps.c		\
 				menu.c 		\
 
 DIR_SRC		=	src/

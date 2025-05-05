@@ -29,13 +29,13 @@ static size_t count_words(const char *str, const size_t len)
     return nb_word;
 }
 
-static char *handle_sep(const char *str, const char *sep, const size_t reverse)
+static char *handle_sep(const char *str, const char *sep)
 {
-    char *cpy = malloc(sizeof(char) * get_len(str) + 1);
+    char *cpy = malloc(sizeof(char) * (get_len(str) + 1));
     size_t i = 0;
 
     for (; str[i] != '\0'; i++) {
-        if (is_separator(str[i], sep) && !reverse)
+        if (is_separator(str[i], sep))
             cpy[i] = '\0';
         else
             cpy[i] = str[i];
@@ -67,7 +67,7 @@ static char **str_to_word_array(char *string, const size_t len)
     return array;
 }
 
-char **slice(const char *str, const char *separators, const size_t reverse)
+char **slice(const char *str, const char *separators)
 {
     size_t len = 0;
     char *string = NULL;
@@ -78,7 +78,7 @@ char **slice(const char *str, const char *separators, const size_t reverse)
         return NULL;
     len = get_len(str);
     new_str = str_dup(str);
-    string = handle_sep(new_str, separators, reverse);
+    string = handle_sep(new_str, separators);
     free(new_str);
     if (!string)
         return NULL;

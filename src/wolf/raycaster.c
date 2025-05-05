@@ -15,6 +15,8 @@ size_t init_ray(data_t *data)
     if (!data->r)
         return EXIT_ERROR;
     data->r->angle = data->p->angle;
+    data->r->r = (sfVector2f){0, 0};
+    data->r->dist = 0;
     return EXIT_SUCCESS;
 }
 
