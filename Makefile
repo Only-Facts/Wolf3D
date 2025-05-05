@@ -21,19 +21,28 @@ LIB_FILES	=	write.c		\
 				cut.c	\
 				str_to_word_array.c
 
+
+DIR_MENU	=	menu/
+
+MENU_FILES	=	menu.c	\
+
+DIR_GAME	=	game/
+
+GAME_FILES	=	draw.c	\
+				event.c	\
+				fps.c	\
+				map.c	\
+				player.c	\
+				raycaster.c	\
+
 DIR_WOLF	=	wolf/
 
 WOLF_FILES	=	init.c		\
 				window.c	\
 				loop.c		\
-				draw.c		\
-				event.c		\
-				player.c	\
-				map.c		\
-				raycaster.c	\
-				fps.c		\
 				scenes.c	\
-				menu.c 		\
+				$(addprefix $(DIR_MENU), $(MENU_FILES))	\
+				$(addprefix $(DIR_GAME), $(GAME_FILES))	\
 
 DIR_SRC		=	src/
 
