@@ -29,6 +29,8 @@ static void create_rectangle(data_t *data, sfColor color,
 
     if (!wall)
         return;
+    if (i.x > 30 && i.x < 60 && data->flash > 0)
+        color = sfColor_add(color, (sfColor){30, 30, 30, 0});
     sfRectangleShape_setPosition(wall, (sfVector2f){i.x * 8 + 250,
         i.y + line.y});
     sfRectangleShape_setSize(wall, (sfVector2f){8, 8});

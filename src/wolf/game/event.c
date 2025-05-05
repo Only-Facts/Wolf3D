@@ -135,10 +135,16 @@ static void check_walls(data_t *data)
 void event(data_t *data)
 {
     sfEvent event = {.type = sfEvtKeyPressed};
+    static size_t status = 0;
 
     sfRenderWindow_pollEvent(data->win, &event);
     if (event.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
         sfRenderWindow_close(data->win);
+    if (sfKeyboard_isKeyPressed(sfKeyL) && !status){
+        data->flash *= -1;
+        status = 1;
+    } else
+        status = 0;
     update_keys(data);
     check_walls(data);
     update_movement(data);

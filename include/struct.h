@@ -8,6 +8,7 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
+    #include <stdbool.h>
 
     /* MAP */
     #define MAP_Y 16
@@ -21,6 +22,20 @@ enum scenes {
     PAUSE,
     END,
 };
+
+typedef struct {
+    sfSprite *s;
+    sfTexture *t;
+    sfVector2f pos;
+    sfVector2f size;
+} sprite_t;
+
+typedef struct {
+    char name[50];
+    bool is_firearm;
+    size_t ammo;
+    sprite_t *sprite;
+} weapon_t;
 
 typedef struct {
     int z;
@@ -72,6 +87,8 @@ typedef struct {
     keys_t *keys;
     img_t *img;
     double dtime;
+    weapon_t **w;
+    int flash;
 } data_t;
 
 typedef struct {

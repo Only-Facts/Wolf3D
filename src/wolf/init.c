@@ -50,6 +50,7 @@ static data_t *init_struct(void)
 
     data->dtime = 0;
     data->scenes = MENU;
+    data->flash = -1;
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data))
         return NULL;
