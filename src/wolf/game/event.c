@@ -137,8 +137,10 @@ void event(data_t *data)
     sfEvent event = {.type = sfEvtKeyPressed};
 
     sfRenderWindow_pollEvent(data->win, &event);
-    if (event.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
+    if (event.type == sfEvtClosed)
         sfRenderWindow_close(data->win);
+    else if (sfKeyboard_isKeyPressed(sfKeyM))
+        data->scenes = MENU;
     update_keys(data);
     check_walls(data);
     update_movement(data);
