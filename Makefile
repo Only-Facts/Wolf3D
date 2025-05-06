@@ -24,8 +24,9 @@ LIB_FILES	=	write.c		\
 
 DIR_MENU	=	menu/
 
-MENU_FILES	=	menu.c			\
-				create_button.c \
+MENU_FILES	=	menu.c				\
+				create_button.c 	\
+				button_animation.c	\
 
 DIR_GAME	=	game/
 

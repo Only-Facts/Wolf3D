@@ -8,24 +8,12 @@
 #include "my.h"
 #include "macro.h"
 
-static void draw_background(sfRenderWindow *win)
-{
-    sfRectangleShape *bg = sfRectangleShape_create();
-
-    if (!bg)
-        return;
-    sfRectangleShape_setSize(bg, (sfVector2f){WIDTH, HEIGHT});
-    sfRectangleShape_setFillColor(bg, BLACK);
-    sfRenderWindow_drawRectangleShape(win, bg, NULL);
-    sfRectangleShape_destroy(bg);
-}
-
 static menu_t *create_menu(void)
 {
     menu_t *menu = malloc(sizeof(menu_t));
-    sfVector2f pos_play = {WIDTH / 2.0 - 250, HEIGHT / 2.0 + -150};
-    sfVector2f pos_options = {WIDTH / 2.0 - 600, HEIGHT / 2.0 + -150};
-    sfVector2f pos_quit = {WIDTH / 2.0 + 100, HEIGHT / 2.0 - 150};
+    sfVector2f pos_play = {WIDTH / 2.0 + 0, HEIGHT / 2.0 + 100};
+    sfVector2f pos_options = {WIDTH / 2.0 - 350, HEIGHT / 2.0 + 100};
+    sfVector2f pos_quit = {WIDTH / 2.0 + 350, HEIGHT / 2.0 + 100};
 
     if (!menu)
         return NULL;
@@ -55,6 +43,15 @@ void destroy_menu(menu_t *menu)
     if (menu->bg_texture)
         sfTexture_destroy(menu->bg_texture);
     free(menu);
+}
+
+static void update_all_animations(menu_t *menu, float dtime)
+{
+    if (!menu)
+        return;
+    update_button_animation(menu->play, dtime);
+    update_button_animation(menu->options, dtime);
+    update_button_animation(menu->quit, dtime);
 }
 
 static void draw_menu(sfRenderWindow *win, menu_t *menu)
@@ -95,6 +92,17 @@ static void check_window_events(data_t *data, sfEvent event)
         sfRenderWindow_close(data->win);
 }
 
+void handle_button_click(button_t *button, sfVector2i mouse_pos,
+    sfRenderWindow *win, sfBool *action)
+{
+    if (!button || !win)
+        return;
+    if (is_button_clicked(button, mouse_pos, win)) {
+        start_button_animation(button);
+        *action = sfTrue;
+    }
+}
+
 static void check_button_events(data_t *data, sfEvent event,
     menu_t *menu)
 {
@@ -107,14 +115,7 @@ static void check_button_events(data_t *data, sfEvent event,
         return;
     mouse_pos.x = event.mouseButton.x;
     mouse_pos.y = event.mouseButton.y;
-    if (menu->play && is_button_clicked(menu->play, mouse_pos, data->win))
-        data->scenes = GAME;
-    if (menu->options && is_button_clicked(menu->options,
-        mouse_pos, data->win)) {
-        data->scenes = SETTINGS;
-    }
-    if (menu->quit && is_button_clicked(menu->quit, mouse_pos, data->win))
-        sfRenderWindow_close(data->win);
+    check_button_clicks(data, mouse_pos, menu);
 }
 
 static void handle_menu_events(data_t *data, menu_t *menu)
@@ -141,6 +142,7 @@ size_t display_menu(data_t *data)
         }
     }
     handle_menu_events(data, data->menu);
+    update_all_animations(data->menu, data->dtime);
     draw_menu(data->win, data->menu);
     return EXIT_SUCCESS;
 }

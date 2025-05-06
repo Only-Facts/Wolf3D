@@ -59,6 +59,17 @@ void destroy_button(button_t *button);
 void draw_title(sfRenderWindow *win);
 sfBool create_background(menu_t *menu);
 void destroy_menu(menu_t *menu);
+void draw_background(sfRenderWindow *win);
+
+/* button_animation.c*/
+button_anim_t *create_button_anim(void);
+void destroy_button_anim(button_anim_t *anim);
+void start_button_animation(button_t *button);
+void update_button_animation(button_t *button, float dtime);
+void check_button_clicks(data_t *data, sfVector2i mouse_pos,
+    menu_t *menu);
+void handle_button_click(button_t *button, sfVector2i mouse_pos,
+    sfRenderWindow *win, sfBool *action);
 
 /* player.c */
 size_t init_player(data_t *data);

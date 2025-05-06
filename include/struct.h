@@ -64,9 +64,19 @@ typedef struct {
 } img_t;
 
 typedef struct {
+    float scale;
+    sfBool is_animating;
+    sfBool is_shrinking;
+    float target_scale;
+    float animation_speed;
+    sfClock *clock;
+} button_anim_t;
+
+typedef struct {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f position;
+    button_anim_t *anim;
 } button_t;
 
 typedef struct {
