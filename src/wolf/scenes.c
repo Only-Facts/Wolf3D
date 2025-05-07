@@ -15,6 +15,7 @@ static size_t game_scene(data_t *data, double fps)
     event(data);
     draw(data);
     draw_fps(data->win, fps);
+    weapon(data);
     return EXIT_SUCCESS;
 }
 

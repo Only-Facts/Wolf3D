@@ -33,6 +33,7 @@ GAME_FILES	=	draw.c	\
 				fps.c	\
 				map.c	\
 				player.c	\
+				weapon.c	\
 				raycaster.c	\
 
 DIR_WOLF	=	wolf/

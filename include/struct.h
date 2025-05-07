@@ -88,6 +88,7 @@ typedef struct {
     img_t *img;
     double dtime;
     weapon_t **w;
+    size_t wnb;
     int flash;
 } data_t;
 

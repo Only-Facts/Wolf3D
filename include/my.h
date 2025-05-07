@@ -56,6 +56,8 @@ size_t display_menu(data_t *data);
 /* player.c */
 size_t init_player(data_t *data);
 
+size_t weapon(data_t *data);
+
 /* raycaster.c */
 size_t init_ray(data_t *data);
 sfVector3f check_h_lines(data_t *data);
