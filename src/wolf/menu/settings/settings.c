@@ -50,7 +50,6 @@ size_t display_settings(data_t *data)
 {
     if (!data || !data->win)
         return EXIT_ERROR;
-    handle_menu_events(data);
     draw_menu(data->win, data->menu);
     return EXIT_SUCCESS;
 }
