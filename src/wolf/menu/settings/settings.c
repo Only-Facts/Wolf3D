@@ -38,7 +38,6 @@ static void draw_title_settings(sfRenderWindow *win)
     sfText_destroy(title);
 }
 
-
 static void draw_menu(sfRenderWindow *win, menu_t *menu)
 {
     if (!win || !menu)
