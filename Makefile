@@ -21,6 +21,9 @@ LIB_FILES	=	write.c		\
 				cut.c	\
 				str_to_word_array.c
 
+DIR_SETT	=	menu/settings/
+
+SETT_FILES	=	settings.c 	\
 
 DIR_MENU	=	menu/
 
@@ -45,6 +48,7 @@ WOLF_FILES	=	init.c		\
 				scenes.c	\
 				$(addprefix $(DIR_MENU), $(MENU_FILES))	\
 				$(addprefix $(DIR_GAME), $(GAME_FILES))	\
+				$(addprefix $(DIR_SETT), $(SETT_FILES))	\
 
 DIR_SRC		=	src/
 
