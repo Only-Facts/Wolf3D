@@ -9,6 +9,26 @@
 #include "struct.h"
 #include "macro.h"
 
+static void handle_settings_events(data_t *data, menu_t *menu)
+{
+    sfEvent event;
+
+    if (!data || !menu || !data->win)
+        return;
+    while (sfRenderWindow_pollEvent(data->win, &event)) {
+        if (event.type == sfEvtClosed)
+            sfRenderWindow_close(data->win);
+        if (event.type == sfEvtKeyPressed && event.key.code == sfKeyEscape)
+            data->scenes = MENU;
+    }
+}
+
+static void update_settings_animations(menu_t *menu, float dtime)
+{
+    if (!menu)
+        return;
+}
+
 void draw_background_settings(sfRenderWindow *win)
 {
     sfRectangleShape *bg = sfRectangleShape_create();
@@ -38,7 +58,7 @@ static void draw_title_settings(sfRenderWindow *win)
     sfText_destroy(title);
 }
 
-static void draw_menu(sfRenderWindow *win, menu_t *menu)
+static void draw_settings(sfRenderWindow *win, menu_t *menu)
 {
     if (!win || !menu)
         return;
@@ -50,6 +70,12 @@ size_t display_settings(data_t *data)
 {
     if (!data || !data->win)
         return EXIT_ERROR;
-    draw_menu(data->win, data->menu);
+    if (data->menu == NULL) {
+        data->scenes = MENU;
+        return EXIT_SUCCESS;
+    }
+    handle_settings_events(data, data->menu);
+    update_settings_animations(data->menu, data->dtime);
+    draw_settings(data->win, data->menu);
     return EXIT_SUCCESS;
 }
