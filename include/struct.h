@@ -83,8 +83,10 @@ typedef struct {
     button_t *play;
     button_t *options;
     button_t *quit;
+    sfText *fps_text;
     sfSprite *background;
     sfTexture *bg_texture;
+    int fps_limit;
 } menu_t;
 
 typedef struct {

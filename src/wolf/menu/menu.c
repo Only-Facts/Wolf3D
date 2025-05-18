@@ -20,8 +20,10 @@ static menu_t *create_menu(void)
     menu->play = NULL;
     menu->options = NULL;
     menu->quit = NULL;
+    menu->fps_text = NULL;
     menu->background = NULL;
     menu->bg_texture = NULL;
+    menu->fps_limit = 60;
     menu->play = create_button("assets/img/play.png", pos_play);
     menu->options = create_button("assets/img/options.png", pos_options);
     menu->quit = create_button("assets/img/quit.png", pos_quit);
@@ -38,6 +40,8 @@ void destroy_menu(menu_t *menu)
         destroy_button(menu->options);
     if (menu->quit)
         destroy_button(menu->quit);
+    if (menu->fps_text)
+        sfText_destroy(menu->fps_text);
     if (menu->background)
         sfSprite_destroy(menu->background);
     if (menu->bg_texture)

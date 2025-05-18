@@ -75,6 +75,9 @@ void handle_button_click(button_t *button, sfVector2i mouse_pos,
 
 /* settings.c */
 size_t display_settings(data_t *data);
+void handle_settings_events(data_t *data);
+void handle_fps_text_click(data_t *data, sfVector2i mouse_pos);
+void draw_background_settings(sfRenderWindow *win);
 
 /* player.c */
 size_t init_player(data_t *data);

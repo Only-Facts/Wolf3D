@@ -23,7 +23,8 @@ LIB_FILES	=	write.c		\
 
 DIR_SETT	=	menu/settings/
 
-SETT_FILES	=	settings.c 	\
+SETT_FILES	=	settings.c 			\
+				settings_events.c 	\
 
 DIR_MENU	=	menu/
 

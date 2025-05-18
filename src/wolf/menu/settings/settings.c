@@ -8,37 +8,88 @@
 #include "my.h"
 #include "struct.h"
 #include "macro.h"
+#include <stdio.h>
 
-static void handle_settings_events(data_t *data, menu_t *menu)
+static sfText *create_fps_text(int fps_limit)
 {
-    sfEvent event;
+    sfText *text = sfText_create();
+    sfFont *font = FONT;
+    sfVector2f pos = {WIDTH / 2.0f, HEIGHT / 2.0f};
+    char fps_text[20];
 
-    if (!data || !menu || !data->win)
-        return;
-    while (sfRenderWindow_pollEvent(data->win, &event)) {
-        if (event.type == sfEvtClosed)
-            sfRenderWindow_close(data->win);
-        if (event.type == sfEvtKeyPressed && event.key.code == sfKeyEscape)
-            data->scenes = MENU;
-    }
+    if (!text || !font)
+        return NULL;
+    snprintf(fps_text, 20, "FPS Limit: %d", fps_limit);
+    sfText_setFont(text, font);
+    sfText_setCharacterSize(text, 24);
+    sfText_setString(text, fps_text);
+    sfText_setPosition(text, pos);
+    sfText_setOrigin(text, (sfVector2f){
+        sfText_getGlobalBounds(text).width / 2.0f,
+        sfText_getGlobalBounds(text).height / 2.0f});
+    sfText_setFillColor(text, WHITE);
+    return text;
 }
 
-static void update_settings_animations(menu_t *menu, float dtime)
+static void update_fps_text(menu_t *menu)
 {
-    if (!menu)
+    char fps_text[20];
+
+    if (!menu || !menu->fps_text)
         return;
+    snprintf(fps_text, 20, "FPS Limit: %d", menu->fps_limit);
+    sfText_setString(menu->fps_text, fps_text);
 }
 
-void draw_background_settings(sfRenderWindow *win)
+static void toggle_fps_limit(data_t *data)
 {
-    sfRectangleShape *bg = sfRectangleShape_create();
+    int new_limit = 0;
 
-    if (!bg)
+    if (!data || !data->menu)
         return;
-    sfRectangleShape_setSize(bg, (sfVector2f){WIDTH, HEIGHT});
-    sfRectangleShape_setFillColor(bg, GREY);
-    sfRenderWindow_drawRectangleShape(win, bg, NULL);
-    sfRectangleShape_destroy(bg);
+    if (data->menu->fps_limit == 30)
+        new_limit = 60;
+    else if (data->menu->fps_limit == 60)
+        new_limit = 120;
+    else
+        new_limit = 30;
+    data->menu->fps_limit = new_limit;
+    sfRenderWindow_setFramerateLimit(data->win, new_limit);
+    update_fps_text(data->menu);
+}
+
+static sfBool is_fps_text_clicked(sfText *text, sfVector2i mouse_pos,
+    sfRenderWindow *win)
+{
+    sfFloatRect bounds;
+    sfVector2f world_pos;
+
+    if (!text || !win)
+        return sfFalse;
+    bounds = sfText_getGlobalBounds(text);
+    world_pos = sfRenderWindow_mapPixelToCoords(win, mouse_pos, NULL);
+    return (world_pos.x >= bounds.left &&
+            world_pos.x <= bounds.left + bounds.width &&
+            world_pos.y >= bounds.top &&
+            world_pos.y <= bounds.top + bounds.height);
+}
+
+static void init_settings_elements(data_t *data)
+{
+    if (!data || !data->menu)
+        return;
+    if (data->menu->fps_limit == 0)
+        data->menu->fps_limit = 60;
+    if (data->menu->fps_text == NULL)
+        data->menu->fps_text = create_fps_text(data->menu->fps_limit);
+}
+
+void handle_fps_text_click(data_t *data, sfVector2i mouse_pos)
+{
+    if (!data || !data->menu || !data->menu->fps_text)
+        return;
+    if (is_fps_text_clicked(data->menu->fps_text, mouse_pos, data->win))
+        toggle_fps_limit(data);
 }
 
 static void draw_title_settings(sfRenderWindow *win)
@@ -58,12 +109,37 @@ static void draw_title_settings(sfRenderWindow *win)
     sfText_destroy(title);
 }
 
-static void draw_settings(sfRenderWindow *win, menu_t *menu)
+static void handle_fps_text_hover(data_t *data, sfVector2i mouse_pos)
 {
-    if (!win || !menu)
+    sfText *text = data->menu->fps_text;
+    sfFloatRect bounds;
+    sfVector2f world_pos;
+
+    if (!data || !data->menu || !text || !data->win)
         return;
-    draw_background_settings(win);
-    draw_title_settings(win);
+    bounds = sfText_getGlobalBounds(text);
+    world_pos = sfRenderWindow_mapPixelToCoords(data->win, mouse_pos, NULL);
+    if (world_pos.x >= bounds.left && world_pos.x <=
+        bounds.left + bounds.width &&
+        world_pos.y >= bounds.top && world_pos.y <=
+        bounds.top + bounds.height)
+        sfText_setFillColor(text, GREEN);
+    else
+        sfText_setFillColor(text, WHITE);
+}
+
+static void draw_settings(data_t *data)
+{
+    sfVector2i mouse_pos;
+
+    if (!data || !data->win || !data->menu)
+        return;
+    draw_background_settings(data->win);
+    draw_title_settings(data->win);
+    mouse_pos = sfMouse_getPositionRenderWindow(data->win);
+    handle_fps_text_hover(data, mouse_pos);
+    if (data->menu->fps_text)
+        sfRenderWindow_drawText(data->win, data->menu->fps_text, NULL);
 }
 
 size_t display_settings(data_t *data)
@@ -74,8 +150,8 @@ size_t display_settings(data_t *data)
         data->scenes = MENU;
         return EXIT_SUCCESS;
     }
-    handle_settings_events(data, data->menu);
-    update_settings_animations(data->menu, data->dtime);
-    draw_settings(data->win, data->menu);
+    init_settings_elements(data);
+    handle_settings_events(data);
+    draw_settings(data);
     return EXIT_SUCCESS;
 }
