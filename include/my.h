@@ -14,7 +14,6 @@
     #include "struct.h"
 
     /* CSFML */
-    #include <SFML/Graphics.h>
     #include <SFML/System.h>
     #include <SFML/Window.h>
 
@@ -28,9 +27,19 @@ enum {
 
 /* >------ Project ------< */
 
-/* menu.c */
-size_t display_menu(data_t *data);
+/* init.c */
+int initialise(int argc, const char *argv[]);
 
+/* loop.c */
+size_t loop(data_t *data);
+
+/* scenes */
+size_t scenes(data_t *data, const double fps);
+
+/* window.c */
+size_t init_window(data_t *data);
+
+/* >------ Game ------< */
 /* draw.c */
 void draw(data_t *data);
 
@@ -41,25 +50,18 @@ void event(data_t *data);
 /* fps.c */
 void draw_fps(sfRenderWindow *win, double fps);
 
-/* init.c */
-int initialise(int argc, const char *argv[]);
-
-/* loop.c */
-size_t loop(data_t *data);
-
 /* map.c */
 size_t init_map(data_t *data);
 
-/* menu.c */
-size_t display_menu(data_t *data);
-sfTexture *load_button_texture(const char *path);
-sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos);
-button_t *create_button(const char *path, sfVector2f pos);
-void destroy_button(button_t *button);
-void draw_title(sfRenderWindow *win);
-sfBool create_background(menu_t *menu);
-void destroy_menu(menu_t *menu);
-void draw_background(sfRenderWindow *win);
+/* player.c */
+size_t init_player(data_t *data);
+
+/* raycaster.c */
+size_t init_ray(data_t *data);
+sfVector3f check_h_lines(data_t *data);
+sfVector3f check_v_lines(data_t *data);
+
+/* >------ Menu ------< */
 
 /* button_animation.c */
 button_anim_t *create_button_anim(void);
@@ -71,27 +73,28 @@ void check_button_clicks(data_t *data, sfVector2i mouse_pos,
 void handle_button_click(button_t *button, sfVector2i mouse_pos,
     sfRenderWindow *win, sfBool *action);
 
-/* >------ settings ------< */
+/* create_button.c */
+void draw_background(sfRenderWindow *win);
+sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos);
+button_t *create_button(const char *path, sfVector2f pos);
+void destroy_button(button_t *button);
+void draw_title(sfRenderWindow *win);
+
+/* menu.c */
+size_t display_menu(data_t *data);
+sfTexture *load_button_texture(const char *path);
+sfBool create_background(menu_t *menu);
+void destroy_menu(menu_t *menu);
+
+/* >------ Settings ------< */
 
 /* settings.c */
 size_t display_settings(data_t *data);
-void handle_settings_events(data_t *data);
 void handle_fps_text_click(data_t *data, sfVector2i mouse_pos);
+
+/* settings_events.c */
+void handle_settings_events(data_t *data);
 void draw_background_settings(sfRenderWindow *win);
-
-/* player.c */
-size_t init_player(data_t *data);
-
-/* raycaster.c */
-size_t init_ray(data_t *data);
-sfVector3f check_h_lines(data_t *data);
-sfVector3f check_v_lines(data_t *data);
-
-/* scenes */
-size_t scenes(data_t *data, const double fps);
-
-/* window.c */
-size_t init_window(data_t *data);
 
 /* >------ Lib ------< */
 
