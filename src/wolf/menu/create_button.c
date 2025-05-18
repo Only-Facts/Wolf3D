@@ -77,15 +77,16 @@ void draw_title(sfRenderWindow *win)
 {
     sfText *title = sfText_create();
     sfFont *font = FONT;
-    sfVector2f pos = {WIDTH / 2.0f - 100, HEIGHT / 2.0f - 200};
+    sfVector2f pos = {WIDTH / 2.0f - 200, HEIGHT / 2.0f - 200};
 
     if (!title || !font)
         return;
     sfText_setFont(title, font);
-    sfText_setCharacterSize(title, 48);
-    sfText_setString(title, "WOLF3D");
+    sfText_setCharacterSize(title, 72);
+    sfText_setString(title, "Wolfenstein 3D");
     sfText_setPosition(title, pos);
     sfText_setFillColor(title, WHITE);
     sfRenderWindow_drawText(win, title, NULL);
+    sfFont_destroy(font);
     sfText_destroy(title);
 }

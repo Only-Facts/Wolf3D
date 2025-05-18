@@ -21,7 +21,7 @@ static sfText *create_fps_text(int fps_limit)
         return NULL;
     snprintf(fps_text, 20, "FPS Limit: %d", fps_limit);
     sfText_setFont(text, font);
-    sfText_setCharacterSize(text, 24);
+    sfText_setCharacterSize(text, 32);
     sfText_setString(text, fps_text);
     sfText_setPosition(text, pos);
     sfText_setOrigin(text, (sfVector2f){
@@ -101,11 +101,12 @@ static void draw_title_settings(sfRenderWindow *win)
     if (!title || !font)
         return;
     sfText_setFont(title, font);
-    sfText_setCharacterSize(title, 48);
+    sfText_setCharacterSize(title, 72);
     sfText_setString(title, "SETTINGS");
     sfText_setPosition(title, pos);
     sfText_setFillColor(title, WHITE);
     sfRenderWindow_drawText(win, title, NULL);
+    sfFont_destroy(font);
     sfText_destroy(title);
 }
 
@@ -123,7 +124,7 @@ static void handle_fps_text_hover(data_t *data, sfVector2i mouse_pos)
         bounds.left + bounds.width &&
         world_pos.y >= bounds.top && world_pos.y <=
         bounds.top + bounds.height)
-        sfText_setFillColor(text, GREEN);
+        sfText_setFillColor(text, sfColor_fromRGB(180, 20, 30));
     else
         sfText_setFillColor(text, WHITE);
 }
