@@ -40,12 +40,19 @@ size_t scenes(data_t *data, const double fps);
 size_t init_window(data_t *data);
 
 /* >------ Game ------< */
+
+/* ceiling.c */
+void draw_ceiling(data_t *data);
+
 /* draw.c */
 void draw(data_t *data);
 
 /* event.c */
 size_t init_keys(data_t *data);
 void event(data_t *data);
+
+/* floor.c */
+void draw_floor(data_t *data);
 
 /* fps.c */
 void draw_fps(sfRenderWindow *win, double fps);

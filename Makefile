@@ -34,8 +34,10 @@ MENU_FILES	=	menu.c				\
 
 DIR_GAME	=	game/
 
-GAME_FILES	=	draw.c	\
+GAME_FILES	=	ceiling.c	\
+				draw.c	\
 				event.c	\
+				floor.c	\
 				fps.c	\
 				map.c	\
 				player.c	\
