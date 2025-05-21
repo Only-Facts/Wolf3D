@@ -147,17 +147,18 @@ static void draw_map(data_t *data)
 
 static void draw_outline(data_t *data)
 {
-  sfRectangleShape *outline = sfRectangleShape_create();
-  sfColor color = sfColor_fromRGB(46, 46, 46);
+    sfRectangleShape *outline = sfRectangleShape_create();
+    sfColor color = sfColor_fromRGB(46, 46, 46);
 
-  if (!outline)
-    return;
-  sfRectangleShape_setFillColor(outline, color);
-  sfRectangleShape_setSize(outline, (sfVector2f){data->FOV * MAP_S + 20, 510});
-  sfRectangleShape_setPosition(outline,
-      (sfVector2f){(WIDTH / 2) - (data->FOV * MAP_S) / 2 - 10, 280});
-  sfRenderWindow_drawRectangleShape(data->win, outline, NULL);
-  sfRectangleShape_destroy(outline);
+    if (!outline)
+        return;
+    sfRectangleShape_setFillColor(outline, color);
+    sfRectangleShape_setSize(outline,
+        (sfVector2f){data->FOV * MAP_S + 20, 510});
+    sfRectangleShape_setPosition(outline,
+        (sfVector2f){(WIDTH / 2) - (data->FOV * MAP_S) / 2 - 10, 280});
+    sfRenderWindow_drawRectangleShape(data->win, outline, NULL);
+    sfRectangleShape_destroy(outline);
 }
 
 void draw(data_t *data)

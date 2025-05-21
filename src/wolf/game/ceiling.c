@@ -17,9 +17,8 @@ void draw_ceiling(data_t *data)
         return;
     sfRectangleShape_setFillColor(ceiling, color);
     sfRectangleShape_setSize(ceiling, (sfVector2f){data->FOV * MAP_S, 250});
-    sfRectangleShape_setPosition(ceiling, 
+    sfRectangleShape_setPosition(ceiling,
         (sfVector2f){(WIDTH / 2) - (data->FOV * MAP_S / 2), 285});
     sfRenderWindow_drawRectangleShape(data->win, ceiling, NULL);
     sfRectangleShape_destroy(ceiling);
 }
-

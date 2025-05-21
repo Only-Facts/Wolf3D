@@ -17,7 +17,7 @@ void draw_floor(data_t *data)
         return;
     sfRectangleShape_setFillColor(floor, color);
     sfRectangleShape_setSize(floor, (sfVector2f){data->FOV * MAP_S, 250});
-    sfRectangleShape_setPosition(floor, 
+    sfRectangleShape_setPosition(floor,
         (sfVector2f){(WIDTH / 2) - (data->FOV * MAP_S / 2), 530});
     sfRenderWindow_drawRectangleShape(data->win, floor, NULL);
     sfRectangleShape_destroy(floor);
