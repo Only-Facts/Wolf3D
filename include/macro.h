@@ -17,7 +17,7 @@
     #define HEIGHT 512
 
     /* FONT */
-    #define FONT sfFont_createFromFile("assets/fonts/Fira.ttf")
+    #define FONT sfFont_createFromFile("assets/fonts/fira.ttf")
 
     /* Colors */
     #define BLACK sfColor_fromRGB(10, 10, 10)
