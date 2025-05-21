@@ -1,0 +1,20 @@
+services:
+  wolf3d:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISPLAY=${DISPLAY}
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+      - .:/home/dockeruser/game
+    devices:
+      - /dev/dri
+    network_mode: host
+    user: "${UID}:${GID}"
+    working_dir: /home/dockeruser/game
+    stdin_open: true
+    tty: true

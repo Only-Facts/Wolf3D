@@ -117,21 +117,8 @@ re:		fclean all
 		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[31mMakefile -> re\x1b[0m"
 
-run:	re
-		@echo -e "\x1b[33mMakefile -> run\x1b[0m"
-		@echo -e "\x1b[32m>-------------------<\x1b[35m"
-		@-./$(BINARY) --help
-		@echo -e "\x1b[36m+-----------+\x1b[0m"
-		@-./$(BINARY)
-		@rm -f $(BINARY)
-		@rm -f $(OBJ)
-		@rm -f *.log
-		@rm -f *.gcov
-		@rm -f *.gcda
-		@rm -f *.gcno
-		@rm -f vgcore.*
-		@rm -rf $(DIR_OBJ)
-		@echo -e "\x1b[32m>-------------------<\x1b[0m"
+run:	fclean all
+		@docker-compose up
 
 criterion: fclean $(TEST_OBJ)
 		@$(CC) -o $(BINARY_TEST) $(TEST_OBJ) $(CFLAGS) $(DFLAGS) $(TFLAGS)

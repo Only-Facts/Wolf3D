@@ -13,4 +13,5 @@ vgcore*
 unit_tests
 bonus
 .obj
+.env
 wolf3d
