@@ -3,11 +3,13 @@ FROM archlinux:latest
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN pacman -Sy --noconfirm \
-  git cmake make gcc \
+  git cmake make gcc valgrind elfutils \
   libx11 libxext libxrandr libglvnd libxinerama libxcursor libxi \
   mesa wayland libxkbcommon xdg-utils dbus \
   openal libogg libvorbis flac freetype2 \
   && pacman -Scc --noconfirm
+
+ENV DEBUGINFOD_URLS="https://debuginfod.archlinux.org/"
 
 WORKDIR /tmp
 
