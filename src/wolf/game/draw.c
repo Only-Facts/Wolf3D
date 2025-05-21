@@ -26,12 +26,13 @@ static void create_rectangle(data_t *data, sfColor color,
     sfVector2i i, sfVector2f line)
 {
     sfRectangleShape *wall = sfRectangleShape_create();
+    size_t start = (WIDTH / 2) - ((data->FOV * 12) / 2);
 
     if (!wall)
         return;
-    sfRectangleShape_setPosition(wall, (sfVector2f){i.x * 8 + 250,
+    sfRectangleShape_setPosition(wall, (sfVector2f){i.x * 12 + start,
         i.y + line.y});
-    sfRectangleShape_setSize(wall, (sfVector2f){8, 8});
+    sfRectangleShape_setSize(wall, (sfVector2f){12, 12});
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);
@@ -75,7 +76,7 @@ static void draw_walls(data_t *data, int shade, size_t i)
         ty.y = (line.x - 320) / 2.0;
         line.x = 320;
     }
-    line.y = 260 - line.x / 2;
+    line.y = 500 - line.x / 2;
     create_wall(data, ty, line, i);
 }
 
@@ -106,8 +107,8 @@ static void draw_rays(data_t *data)
 {
     int shade = 0;
 
-    data->r->angle = data->p->angle - RAD * 45;
-    for (size_t i = 0; i < 90; i++) {
+    data->r->angle = data->p->angle - RAD * (data->FOV / 2);
+    for (size_t i = 0; i < data->FOV; i++) {
         if (data->r->angle < 0)
             data->r->angle += 2 * PI;
         if (data->r->angle > 2 * PI)

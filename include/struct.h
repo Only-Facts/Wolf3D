@@ -12,7 +12,7 @@
     /* MAP */
     #define MAP_Y 16
     #define MAP_X 16
-    #define MAP_S 10
+    #define MAP_S 16
 
 enum scenes {
     MENU,
@@ -99,6 +99,7 @@ typedef struct {
     img_t *img;
     menu_t *menu;
     double dtime;
+    size_t FOV;
 } data_t;
 
 #endif /* wolf3d */
