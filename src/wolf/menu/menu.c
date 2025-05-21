@@ -7,64 +7,81 @@
 
 #include "my.h"
 #include "macro.h"
-#include "struct.h"
-#include <SFML/Graphics/RenderWindow.h>
 
-static sfTexture *load_button_texture(const char *path)
+static menu_t *create_menu(void)
 {
-    return sfTexture_createFromFile(path, NULL);
+    menu_t *menu = malloc(sizeof(menu_t));
+    sfVector2f pos_play = {WIDTH / 2.0 + 0, HEIGHT / 2.0 + 100};
+    sfVector2f pos_options = {WIDTH / 2.0 - 350, HEIGHT / 2.0 + 100};
+    sfVector2f pos_quit = {WIDTH / 2.0 + 350, HEIGHT / 2.0 + 100};
+
+    if (!menu)
+        return NULL;
+    menu->play = NULL;
+    menu->options = NULL;
+    menu->quit = NULL;
+    menu->fps_text = NULL;
+    menu->background = NULL;
+    menu->bg_texture = NULL;
+    menu->fps_limit = 60;
+    menu->play = create_button("assets/img/play.png", pos_play);
+    menu->options = create_button("assets/img/options.png", pos_options);
+    menu->quit = create_button("assets/img/quit.png", pos_quit);
+    return menu;
 }
 
-static sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos)
+void destroy_menu(menu_t *menu)
 {
-    sfSprite *sprite = sfSprite_create();
-
-    if (!sprite)
-        return NULL;
-    sfSprite_setTexture(sprite, texture, sfTrue);
-    sfSprite_setPosition(sprite, pos);
-    return sprite;
-}
-
-static button_t *create_button(const char *path, sfVector2f pos)
-{
-    button_t *button = malloc(sizeof(button_t));
-
-    if (!button)
-        return NULL;
-    button->position = pos;
-    button->texture = load_button_texture(path);
-    if (!button->texture) {
-        free(button);
-        return NULL;
-    }
-    button->sprite = init_button_sprite(button->texture, pos);
-    if (!button->sprite) {
-        sfTexture_destroy(button->texture);
-        free(button);
-        return NULL;
-    }
-    return button;
-}
-
-static void destroy_button(button_t *button)
-{
-    if (!button)
+    if (!menu)
         return;
-    if (button->sprite)
-        sfSprite_destroy(button->sprite);
-    if (button->texture)
-        sfTexture_destroy(button->texture);
-    free(button);
+    if (menu->play)
+        destroy_button(menu->play);
+    if (menu->options)
+        destroy_button(menu->options);
+    if (menu->quit)
+        destroy_button(menu->quit);
+    if (menu->fps_text)
+        sfText_destroy(menu->fps_text);
+    if (menu->background)
+        sfSprite_destroy(menu->background);
+    if (menu->bg_texture)
+        sfTexture_destroy(menu->bg_texture);
+    free(menu);
+}
+
+static void update_all_animations(menu_t *menu, float dtime)
+{
+    if (!menu)
+        return;
+    update_button_animation(menu->play, dtime);
+    update_button_animation(menu->options, dtime);
+    update_button_animation(menu->quit, dtime);
+}
+
+static void draw_menu(sfRenderWindow *win, menu_t *menu)
+{
+    if (!win || !menu)
+        return;
+    draw_background(win);
+    draw_title(win);
+    if (menu->play && menu->play->sprite)
+        sfRenderWindow_drawSprite(win, menu->play->sprite, NULL);
+    if (menu->options && menu->options->sprite)
+        sfRenderWindow_drawSprite(win, menu->options->sprite, NULL);
+    if (menu->quit && menu->quit->sprite)
+        sfRenderWindow_drawSprite(win, menu->quit->sprite, NULL);
 }
 
 static sfBool is_button_clicked(button_t *button, sfVector2i mouse_pos,
     sfRenderWindow *win)
 {
-    sfFloatRect bounds = sfSprite_getGlobalBounds(button->sprite);
-    sfVector2f world_pos = sfRenderWindow_mapPixelToCoords(win,
-        mouse_pos, NULL);
+    sfFloatRect bounds;
+    sfVector2f world_pos;
 
+    if (!button || !button->sprite || !win)
+        return sfFalse;
+    bounds = sfSprite_getGlobalBounds(button->sprite);
+    world_pos = sfRenderWindow_mapPixelToCoords(win, mouse_pos, NULL);
     return (world_pos.x >= bounds.left &&
             world_pos.x <= bounds.left + bounds.width &&
             world_pos.y >= bounds.top &&
@@ -73,55 +90,63 @@ static sfBool is_button_clicked(button_t *button, sfVector2i mouse_pos,
 
 static void check_window_events(data_t *data, sfEvent event)
 {
-    if (event.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
+    if (!data || !data->win)
+        return;
+    if (event.type == sfEvtClosed)
         sfRenderWindow_close(data->win);
 }
 
+void handle_button_click(button_t *button, sfVector2i mouse_pos,
+    sfRenderWindow *win, sfBool *action)
+{
+    if (!button || !win)
+        return;
+    if (is_button_clicked(button, mouse_pos, win)) {
+        start_button_animation(button);
+        *action = sfTrue;
+    }
+}
+
 static void check_button_events(data_t *data, sfEvent event,
-    button_t *button, sfBool *in_menu)
+    menu_t *menu)
 {
     sfVector2i mouse_pos;
 
+    if (!data || !menu || !data->win)
+        return;
     if (event.type != sfEvtMouseButtonPressed ||
         event.mouseButton.button != sfMouseLeft)
         return;
     mouse_pos.x = event.mouseButton.x;
     mouse_pos.y = event.mouseButton.y;
-    if (is_button_clicked(button, mouse_pos, data->win))
-        *in_menu = sfFalse;
+    check_button_clicks(data, mouse_pos, menu);
 }
 
-static void handle_menu_events(data_t *data, button_t *button,
-    sfBool *in_menu)
+static void handle_menu_events(data_t *data, menu_t *menu)
 {
     sfEvent event;
 
+    if (!data || !menu || !data->win)
+        return;
     while (sfRenderWindow_pollEvent(data->win, &event)) {
         check_window_events(data, event);
-        check_button_events(data, event, button, in_menu);
+        check_button_events(data, event, menu);
     }
-}
-
-static void run_menu_loop(data_t *data, button_t *button)
-{
-    sfBool in_menu = sfTrue;
-
-    handle_menu_events(data, button, &in_menu);
-    sfRenderWindow_drawSprite(data->win, button->sprite, NULL);
-    if (in_menu == sfFalse)
-        data->scenes = GAME;
 }
 
 size_t display_menu(data_t *data)
 {
-    button_t *play_button = create_button("assets/img/play.png",
-        (sfVector2f){400, 0});
-
-    if (!play_button) {
-        write_error("Error: Could not create play button\n");
+    if (!data || !data->win)
         return EXIT_ERROR;
+    if (data->menu == NULL) {
+        data->menu = create_menu();
+        if (!data->menu) {
+            write_error("Error: Could not create menu\n");
+            return EXIT_ERROR;
+        }
     }
-    run_menu_loop(data, play_button);
-    destroy_button(play_button);
+    handle_menu_events(data, data->menu);
+    update_all_animations(data->menu, data->dtime);
+    draw_menu(data->win, data->menu);
     return EXIT_SUCCESS;
 }

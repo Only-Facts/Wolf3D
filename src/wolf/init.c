@@ -9,6 +9,8 @@
 
 static void free_data(data_t *data)
 {
+    if (data->menu)
+        destroy_menu(data->menu);
     sfRectangleShape_destroy(data->p->texture);
     free(data->p);
     free(data->r);
@@ -31,7 +33,7 @@ static size_t init_img(data_t *data)
     data->img->wall = sfImage_createFromFile("assets/img/wall.png");
     if (!data->img->wall)
         return EXIT_ERROR;
-    data->img->wall_arr = malloc(sizeof(sfColor) * (32 * 32));
+    data->img->wall_arr = malloc(sizeof(sfColor) * (32 * 32 + 1));
     if (!data->img->wall_arr)
         return EXIT_ERROR;
     for (size_t y = 0; y < 32; y++)
@@ -50,6 +52,7 @@ static data_t *init_struct(void)
 
     data->dtime = 0;
     data->scenes = MENU;
+    data->menu = NULL;
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data))
         return NULL;
