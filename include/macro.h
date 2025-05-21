@@ -13,8 +13,8 @@
   #define TITLE "Your local low cost Wolfenstein 3D from 1992 ultimate"
 
   /* SCREEN */
-  #define WIDTH 1300
-  #define HEIGHT 512
+  #define WIDTH 1920
+  #define HEIGHT 1080
 
   /* FONT */
   #define FONT sfFont_createFromFile("assets/fonts/deathshead.otf")
