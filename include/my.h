@@ -70,28 +70,16 @@ sfVector3f check_v_lines(data_t *data);
 
 /* >------ Menu ------< */
 
-/* button_animation.c */
-button_anim_t *create_button_anim(void);
-void destroy_button_anim(button_anim_t *anim);
-void start_button_animation(button_t *button);
-void update_button_animation(button_t *button, float dtime);
-void check_button_clicks(data_t *data, sfVector2i mouse_pos,
-    menu_t *menu);
-void handle_button_click(button_t *button, sfVector2i mouse_pos,
-    sfRenderWindow *win, sfBool *action);
-
 /* create_button.c */
 void draw_background(sfRenderWindow *win);
-sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos);
-button_t *create_button(const char *path, sfVector2f pos);
-void destroy_button(button_t *button);
 void draw_title(sfRenderWindow *win);
+void destroy_menu(menu_t *menu);
 
 /* menu.c */
 size_t display_menu(data_t *data);
-sfTexture *load_button_texture(const char *path);
-sfBool create_background(menu_t *menu);
-void destroy_menu(menu_t *menu);
+
+/* handle_button_hover.c */
+void handle_button_hover(data_t *data);
 
 /* >------ Settings ------< */
 

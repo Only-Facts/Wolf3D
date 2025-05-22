@@ -28,9 +28,9 @@ SETT_FILES	=	settings.c 			\
 
 DIR_MENU	=	menu/
 
-MENU_FILES	=	menu.c				\
-				create_button.c 	\
-				button_animation.c	\
+MENU_FILES	=	menu.c					\
+				handle_button_hover.c	\
+				create_menu.c 			\
 
 DIR_GAME	=	game/
 

@@ -80,9 +80,9 @@ typedef struct {
 } button_t;
 
 typedef struct {
-    button_t *play;
-    button_t *options;
-    button_t *quit;
+    sfText *play;
+    sfText *options;
+    sfText *quit;
     sfText *fps_text;
     sfSprite *background;
     sfTexture *bg_texture;
