@@ -21,7 +21,7 @@ static sfText *create_fps_text(int fps_limit)
         return NULL;
     snprintf(fps_text, 20, "FPS Limit: %d", fps_limit);
     sfText_setFont(text, font);
-    sfText_setCharacterSize(text, 32);
+    sfText_setCharacterSize(text, 60);
     sfText_setString(text, fps_text);
     sfText_setPosition(text, pos);
     sfText_setOrigin(text, (sfVector2f){

@@ -12,7 +12,7 @@ static void configure_menu_button(sfText *button, sfFont *font,
     const char *label, sfVector2f position)
 {
     sfText_setFont(button, font);
-    sfText_setCharacterSize(button, 42);
+    sfText_setCharacterSize(button, 60);
     sfText_setString(button, label);
     sfText_setPosition(button, position);
     sfText_setOrigin(button, (sfVector2f){
@@ -24,8 +24,8 @@ static void configure_menu_button(sfText *button, sfFont *font,
 static void init_menu_buttons(menu_t *menu, sfFont *font)
 {
     sfVector2f pos_play = {WIDTH / 2.0f, HEIGHT / 2.0f + 100};
-    sfVector2f pos_options = {WIDTH / 2.0f, HEIGHT / 2.0f + 160};
-    sfVector2f pos_quit = {WIDTH / 2.0f, HEIGHT / 2.0f + 220};
+    sfVector2f pos_options = {WIDTH / 2.0f, HEIGHT / 2.0f + 200};
+    sfVector2f pos_quit = {WIDTH / 2.0f, HEIGHT / 2.0f + 300};
 
     menu->play = sfText_create();
     menu->options = sfText_create();
