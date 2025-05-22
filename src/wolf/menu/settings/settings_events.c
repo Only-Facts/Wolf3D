@@ -29,15 +29,3 @@ void handle_settings_events(data_t *data)
         }
     }
 }
-
-void draw_background_settings(sfRenderWindow *win)
-{
-    sfRectangleShape *bg = sfRectangleShape_create();
-
-    if (!bg)
-        return;
-    sfRectangleShape_setSize(bg, (sfVector2f){WIDTH, HEIGHT});
-    sfRectangleShape_setFillColor(bg, GREY);
-    sfRenderWindow_drawRectangleShape(win, bg, NULL);
-    sfRectangleShape_destroy(bg);
-}

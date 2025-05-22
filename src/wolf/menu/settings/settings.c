@@ -135,7 +135,7 @@ static void draw_settings(data_t *data)
 
     if (!data || !data->win || !data->menu)
         return;
-    draw_background_settings(data->win);
+    draw_background(data->win);
     draw_title_settings(data->win);
     mouse_pos = sfMouse_getPositionRenderWindow(data->win);
     handle_fps_text_hover(data, mouse_pos);

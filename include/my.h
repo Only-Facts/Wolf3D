@@ -89,7 +89,6 @@ void handle_fps_text_click(data_t *data, sfVector2i mouse_pos);
 
 /* settings_events.c */
 void handle_settings_events(data_t *data);
-void draw_background_settings(sfRenderWindow *win);
 
 /* >------ Lib ------< */
 
