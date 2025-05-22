@@ -8,6 +8,7 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
+    #include <SFML/Audio.h>
 
     /* MAP */
     #define MAP_Y 16
@@ -21,6 +22,18 @@ enum scenes {
     PAUSE,
     END,
 };
+
+enum music_type {
+    NONE_MUSIC,
+    MENU_MUSIC,
+    GAME_MUSIC,
+};
+
+typedef struct {
+    sfMusic *menu_music;
+    sfMusic *game_music;
+    enum music_type current_playing;
+} audio_t;
 
 typedef struct {
     int z;
@@ -98,6 +111,7 @@ typedef struct {
     keys_t *keys;
     img_t *img;
     menu_t *menu;
+    audio_t *audio;
     double dtime;
     size_t FOV;
 } data_t;

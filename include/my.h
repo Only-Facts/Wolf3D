@@ -39,6 +39,13 @@ size_t scenes(data_t *data, const double fps);
 /* window.c */
 size_t init_window(data_t *data);
 
+/* audio.c */
+size_t init_audio(data_t *data);
+void update_music(data_t *data);
+void play_menu_music(data_t *data);
+void play_game_music(data_t *data);
+void destroy_audio(audio_t *audio);
+
 /* >------ Game ------< */
 
 /* ceiling.c */

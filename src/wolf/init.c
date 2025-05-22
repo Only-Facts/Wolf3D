@@ -11,6 +11,8 @@ static void free_data(data_t *data)
 {
     if (data->menu)
         destroy_menu(data->menu);
+    if (data->audio)
+        destroy_audio(data->audio);
     sfRectangleShape_destroy(data->p->texture);
     free(data->p);
     free(data->r);
@@ -53,9 +55,11 @@ static data_t *init_struct(void)
     data->dtime = 0;
     data->scenes = MENU;
     data->menu = NULL;
+    data->audio = NULL;
     data->FOV = 80;
     if (init_window(data) || init_map(data) || init_player(data) ||
-        init_ray(data) || init_keys(data) || init_img(data))
+        init_ray(data) || init_keys(data) || init_img(data) ||
+        init_audio(data))
         return NULL;
     return data;
 }

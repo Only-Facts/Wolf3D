@@ -40,6 +40,7 @@ size_t scenes(data_t *data, const double fps)
 {
     if (!data)
         return EXIT_ERROR;
+    update_music(data);
     if (data->scenes == MENU)
         menu_scene(data);
     if (data->scenes == GAME)

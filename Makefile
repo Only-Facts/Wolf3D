@@ -49,6 +49,7 @@ WOLF_FILES	=	init.c		\
 				window.c	\
 				loop.c		\
 				scenes.c	\
+				audio.c 	\
 				$(addprefix $(DIR_MENU), $(MENU_FILES))	\
 				$(addprefix $(DIR_GAME), $(GAME_FILES))	\
 				$(addprefix $(DIR_SETT), $(SETT_FILES))	\
@@ -77,7 +78,7 @@ OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
 				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
-CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system -lm
+CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 DFLAGS		=	-g -Wall -Wextra
 
@@ -88,7 +89,7 @@ BINARY		=	wolf3d
 all: 	$(BINARY)
 
 $(BINARY):	$(OBJ)
-		@$(CC) $^ -o $@ $(CFLAGS) $(DFLAGS)
+		@$(CC) $^ -o $@ $(CFLAGS) $(DFLAGS) $(CFLAGS)
 		@echo -e "\x1b[36mMakefile -> compile\x1b[0m"
 
 $(DIR_OBJ)%.o:	%.c
