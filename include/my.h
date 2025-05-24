@@ -38,6 +38,7 @@ size_t scenes(data_t *data, const double fps);
 
 /* window.c */
 size_t init_window(data_t *data);
+void change_screen_mode(data_t *data);
 
 /* >------ Game ------< */
 

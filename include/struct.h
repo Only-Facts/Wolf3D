@@ -110,6 +110,7 @@ typedef struct {
     menu_t *menu;
     double dtime;
     size_t FOV;
+    size_t fullscreen;
 } data_t;
 
 #endif /* wolf3d */
