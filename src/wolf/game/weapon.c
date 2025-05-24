@@ -15,14 +15,13 @@ static void init_rect(data_t *data)
     sfImage *image = sfImage_createFromFile("assets/img/weap_rec.png");
     sfVector2u img_size = sfImage_getSize(image);
 
-    if (!data)
-    return;
-    data->w[data->wnb]->idle_rect =
-    (sfIntRect){0, 0, img_size.x, img_size.y / 3};
+     if (!data)
+        return;
+    data->w[data->wnb]->idle_rect = (sfIntRect){0, 0, img_size.x, img_size.y / 3};
     data->w[data->wnb]->shoot_rect =
-    (sfIntRect){0, img_size.y / 3, img_size.x, (img_size.y / 3)};
+        (sfIntRect){0, img_size.y / 3, img_size.x, (img_size.y / 3)};
     data->w[data->wnb]->recoil_rect =
-    (sfIntRect){0, (img_size.y / 3) * 2, img_size.x, img_size.y};
+        (sfIntRect){0, (img_size.y / 3) * 2, img_size.x, img_size.y};
     sfImage_destroy(image);
 }
 
@@ -37,7 +36,7 @@ static void load_weapon(data_t *data)
     sfTexture_createFromFile("assets/img/weap_rec.png", NULL);
     data->w[data->wnb]->sprite->size = (sfVector2f){132, 416};
     data->w[data->wnb]->sprite->pos =
-    (sfVector2f){WIDTH / 2 - 115, HEIGHT / 2 + 30};
+    (sfVector2f){WIDTH / 2 - 115, HEIGHT / 2 + 25};
     sfSprite_setTexture(data->w[data->wnb]->sprite->s,
     data->w[data->wnb]->sprite->t, sfTrue);
     init_rect(data);
@@ -45,7 +44,7 @@ static void load_weapon(data_t *data)
     data->w[data->wnb]->idle_rect);
     sfSprite_setPosition(data->w[data->wnb]->sprite->s,
     data->w[data->wnb]->sprite->pos);
-    sfSprite_setScale(data->w[data->wnb]->sprite->s, (sfVector2f){1.2, 1.2});
+    sfSprite_setScale(data->w[data->wnb]->sprite->s, (sfVector2f){1.8, 1.8});
 }
 
 static void init_weapon(data_t *data)

@@ -26,7 +26,7 @@ static size_t flashlight(data_t *data, sfVector2i i, sfVector2f line)
 {
     if (data->flash < 0)
         return EXIT_SUCCESS;
-    if (i.x > 30 && i.x < 60 &&
+    if (i.x > (int)data->FOV / 3 && i.x < (int)(data->FOV / 3) * 2 &&
         line.x / 5 < i.y && line.x * 4 / 5 > i.y)
             return EXIT_FAILURE;
     return EXIT_SUCCESS;
@@ -44,7 +44,7 @@ static void create_rectangle(data_t *data, sfColor color,
         i.y * 1.5 + line.y});
     sfRectangleShape_setSize(wall, (sfVector2f){MAP_S, MAP_S});
     if (flashlight(data, i, line))
-        color = sfColor_add(color, (sfColor){40, 40, 40, 0};
+        color = sfColor_add(color, (sfColor){40, 40, 40, 0});
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);
