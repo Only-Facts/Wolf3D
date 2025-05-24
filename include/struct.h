@@ -15,7 +15,7 @@
 /* MAP */
     #define MAP_Y 16
     #define MAP_X 16
-    #define MAP_S 10
+    #define MAP_S 16
 
 enum scenes {
     MENU,
@@ -24,6 +24,14 @@ enum scenes {
     PAUSE,
     END,
 };
+
+typedef struct enemy_s {
+    sfVector2f position;
+    float speed;
+    int health;
+    size_t is_alive;
+    sfRectangleShape *dot;
+} enemy_t;
 
 typedef struct {
     sfSprite *s;
@@ -51,6 +59,7 @@ typedef struct {
     int d;
     int left;
     int right;
+    int space;
 } keys_t;
 
 typedef struct {
@@ -82,23 +91,47 @@ typedef struct {
 } img_t;
 
 typedef struct {
-    enum scenes scenes;
-    player_t *p;
-    sfRenderWindow *win;
-    map_t *map;
-    ray_t *r;
-    keys_t *keys;
-    img_t *img;
-    double dtime;
-    weapon_t **w;
-    size_t wnb;
-    int flash;
-} data_t;
+    float scale;
+    sfBool is_animating;
+    sfBool is_shrinking;
+    float target_scale;
+    float animation_speed;
+    sfClock *clock;
+} button_anim_t;
 
 typedef struct {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f position;
+    button_anim_t *anim;
 } button_t;
+
+typedef struct {
+    button_t *play;
+    button_t *options;
+    button_t *quit;
+    sfText *fps_text;
+    sfSprite *background;
+    sfTexture *bg_texture;
+    int fps_limit;
+} menu_t;
+
+typedef struct {
+    enum scenes scenes;
+    player_t *p;
+    enemy_t *e;
+    sfRenderWindow *win;
+    map_t *map;
+    ray_t *r;
+    keys_t *keys;
+    img_t *img;
+    menu_t *menu;
+    double dtime;
+    size_t FOV;
+    size_t fullscreen;
+    weapon_t **w;
+    size_t wnb;
+    int flash;
+} data_t;
 
 #endif /* wolf3d */

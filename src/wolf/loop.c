@@ -18,7 +18,6 @@ static double update_dtime(data_t *data, struct timeval *t1)
     data->dtime = (t2.tv_sec - t1->tv_sec) * 1000.0;
     data->dtime += (t2.tv_usec - t1->tv_usec) / 1000.0;
     fps = 1000.0 / data->dtime;
-    data->dtime /= 30.0;
     return fps;
 }
 

@@ -21,15 +21,24 @@ LIB_FILES	=	write.c		\
 				cut.c	\
 				str_to_word_array.c
 
+DIR_SETT	=	menu/settings/
+
+SETT_FILES	=	settings.c 			\
+				settings_events.c 	\
 
 DIR_MENU	=	menu/
 
-MENU_FILES	=	menu.c	\
+MENU_FILES	=	menu.c				\
+				create_button.c 	\
+				button_animation.c	\
 
 DIR_GAME	=	game/
 
-GAME_FILES	=	draw.c	\
+GAME_FILES	=	ceiling.c	\
+				draw.c	\
+				enemy.c	\
 				event.c	\
+				floor.c	\
 				fps.c	\
 				map.c	\
 				player.c	\
@@ -44,6 +53,7 @@ WOLF_FILES	=	init.c		\
 				scenes.c	\
 				$(addprefix $(DIR_MENU), $(MENU_FILES))	\
 				$(addprefix $(DIR_GAME), $(GAME_FILES))	\
+				$(addprefix $(DIR_SETT), $(SETT_FILES))	\
 
 DIR_SRC		=	src/
 
@@ -111,21 +121,8 @@ re:		fclean all
 		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[31mMakefile -> re\x1b[0m"
 
-run:	re
-		@echo -e "\x1b[33mMakefile -> run\x1b[0m"
-		@echo -e "\x1b[32m>-------------------<\x1b[35m"
-		@-./$(BINARY) --help
-		@echo -e "\x1b[36m+-----------+\x1b[0m"
-		@-./$(BINARY)
-		@rm -f $(BINARY)
-		@rm -f $(OBJ)
-		@rm -f *.log
-		@rm -f *.gcov
-		@rm -f *.gcda
-		@rm -f *.gcno
-		@rm -f vgcore.*
-		@rm -rf $(DIR_OBJ)
-		@echo -e "\x1b[32m>-------------------<\x1b[0m"
+run:	fclean all
+		@docker-compose up --remove-orphans
 
 criterion: fclean $(TEST_OBJ)
 		@$(CC) -o $(BINARY_TEST) $(TEST_OBJ) $(CFLAGS) $(DFLAGS) $(TFLAGS)

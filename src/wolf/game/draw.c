@@ -36,14 +36,15 @@ static void create_rectangle(data_t *data, sfColor color,
     sfVector2i i, sfVector2f line)
 {
     sfRectangleShape *wall = sfRectangleShape_create();
+    size_t start = (WIDTH / 2) - ((data->FOV * MAP_S) / 2);
 
     if (!wall)
         return;
+    sfRectangleShape_setPosition(wall, (sfVector2f){i.x * MAP_S + start,
+        i.y * 1.5 + line.y});
+    sfRectangleShape_setSize(wall, (sfVector2f){MAP_S, MAP_S});
     if (flashlight(data, i, line))
-        color = sfColor_add(color, (sfColor){40, 40, 40, 0});
-    sfRectangleShape_setPosition(wall, (sfVector2f){i.x * 8 + 250,
-        i.y + line.y});
-    sfRectangleShape_setSize(wall, (sfVector2f){8, 8});
+        color = sfColor_add(color, (sfColor){40, 40, 40, 0};
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);
@@ -87,7 +88,7 @@ static void draw_walls(data_t *data, int shade, size_t i)
         ty.y = (line.x - 320) / 2.0;
         line.x = 320;
     }
-    line.y = 260 - line.x / 2;
+    line.y = 500 - line.x / 1.5;
     create_wall(data, ty, line, i);
 }
 
@@ -118,8 +119,8 @@ static void draw_rays(data_t *data)
 {
     int shade = 0;
 
-    data->r->angle = data->p->angle - RAD * 45;
-    for (size_t i = 0; i < 90; i++) {
+    data->r->angle = data->p->angle - RAD * (data->FOV / 2);
+    for (size_t i = 0; i < data->FOV; i++) {
         if (data->r->angle < 0)
             data->r->angle += 2 * PI;
         if (data->r->angle > 2 * PI)
@@ -142,7 +143,7 @@ static void draw_player(data_t *data)
 static void draw_map(data_t *data)
 {
     sfRectangleShape *tile = {0};
-    sfColor colors[2] = {BLACK, sfColor_fromRGB(100, 100, 200)};
+    sfColor colors[2] = {GREY, sfColor_fromRGB(125, 88, 79)};
 
     for (size_t y = 0; y < MAP_Y; y++)
         for (size_t x = 0; x < MAP_X; x++) {
@@ -156,8 +157,29 @@ static void draw_map(data_t *data)
         }
 }
 
+static void draw_outline(data_t *data)
+{
+    sfRectangleShape *outline = sfRectangleShape_create();
+    sfColor color = sfColor_fromRGB(46, 46, 46);
+
+    if (!outline)
+        return;
+    sfRectangleShape_setFillColor(outline, color);
+    sfRectangleShape_setSize(outline,
+        (sfVector2f){data->FOV * MAP_S + 20, 510});
+    sfRectangleShape_setPosition(outline,
+        (sfVector2f){(WIDTH / 2) - (data->FOV * MAP_S) / 2 - 10, 280});
+    sfRenderWindow_drawRectangleShape(data->win, outline, NULL);
+    sfRectangleShape_destroy(outline);
+}
+
 void draw(data_t *data)
 {
+    draw_outline(data);
+    draw_floor(data);
+    draw_ceiling(data);
     draw_map(data);
     draw_player(data);
+    if (data->e->is_alive)
+        sfRenderWindow_drawRectangleShape(data->win, data->e->dot, NULL);
 }
