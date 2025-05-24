@@ -26,7 +26,7 @@ static size_t flashlight(data_t *data, sfVector2i i, sfVector2f line)
 {
     if (data->flash < 0)
         return EXIT_SUCCESS;
-    if (i.x > 30 && i.x < 60 &&
+    if (i.x > (int)data->FOV / 3 && i.x < (int)(data->FOV / 3) * 2 &&
         line.x / 5 < i.y && line.x * 4 / 5 > i.y)
             return EXIT_FAILURE;
     return EXIT_SUCCESS;
@@ -44,7 +44,7 @@ static void create_rectangle(data_t *data, sfColor color,
         i.y * 1.5 + line.y});
     sfRectangleShape_setSize(wall, (sfVector2f){MAP_S, MAP_S});
     if (flashlight(data, i, line))
-        color = sfColor_add(color, (sfColor){40, 40, 40, 0};
+        color = sfColor_add(color, (sfColor){40, 40, 40, 0});
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);
@@ -115,7 +115,7 @@ static void draw_varray(data_t *data, int *shade)
     sfVertexArray_destroy(ray);
 }
 
-static void draw_rays(data_t *data)
+void draw_rays(data_t *data)
 {
     int shade = 0;
 
@@ -129,15 +129,6 @@ static void draw_rays(data_t *data)
         draw_walls(data, shade, i);
         data->r->angle += RAD;
     }
-}
-
-static void draw_player(data_t *data)
-{
-    sfVector2f pos = {data->p->pos.x - 3, data->p->pos.y - 3};
-
-    sfRectangleShape_setPosition(data->p->texture, pos);
-    sfRenderWindow_drawRectangleShape(data->win, data->p->texture, NULL);
-    draw_rays(data);
 }
 
 static void draw_map(data_t *data)

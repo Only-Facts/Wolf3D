@@ -5,8 +5,8 @@
 ** event.c
 */
 
-#include "my.h"
 #include "macro.h"
+#include "my.h"
 #include <SFML/Window/Event.h>
 #include <math.h>
 
@@ -53,8 +53,8 @@ static void forward_backward(data_t *data)
     if (data->keys->z) {
         if (data->map->map[data->p->ip.y][data->p->ippo.x] == 0)
             data->p->pos.x += cos(data->p->angle) * dtime;
-        if (data->map->map[data->p->ippo.y][data->p->ip.x] == 0)
-            data->p->pos.y += sin(data->p->angle) * dtime;
+    if (data->map->map[data->p->ippo.y][data->p->ip.x] == 0)
+        data->p->pos.y += sin(data->p->angle) * dtime;
     }
     if (data->keys->s) {
         if (data->map->map[data->p->ip.y][data->p->ipmo.x] == 0)
@@ -119,10 +119,10 @@ static void check_walls_lr(data_t *data)
     if (sin(data->p->angle + 90 * RAD) < 0)
         o.y = -8;
     o.y += 4;
-    data->p->jppo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
-        (p.y + o.y) / (float)MAP_S};
-    data->p->jpmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,
-        (p.y - o.y) / (float)MAP_S};
+    data->p->jppo =
+    (sfVector2i){(p.x + o.x) / (float)MAP_S, (p.y + o.y) / (float)MAP_S};
+    data->p->jpmo =
+    (sfVector2i){(p.x - o.x) / (float)MAP_S, (p.y - o.y) / (float)MAP_S};
 }
 
 static void check_walls(data_t *data)
@@ -137,36 +137,28 @@ static void check_walls(data_t *data)
     if (sin(data->p->angle) < 0)
         o.y = -8;
     o.y += 4;
-    data->p->ippo = (sfVector2i){(p.x + o.x) / (float)MAP_S,
-        (p.y + o.y) / (float)MAP_S};
-    data->p->ipmo = (sfVector2i){(p.x - o.x) / (float)MAP_S,
-        (p.y - o.y) / (float)MAP_S};
+    data->p->ippo =
+    (sfVector2i){(p.x + o.x) / (float)MAP_S, (p.y + o.y) / (float)MAP_S};
+    data->p->ipmo =
+    (sfVector2i){(p.x - o.x) / (float)MAP_S, (p.y - o.y) / (float)MAP_S};
     check_walls_lr(data);
 }
 
 void event(data_t *data)
 {
     sfEvent event = {.type = sfEvtKeyPressed};
-    static size_t status = 0;
 
+    if (!data)
+        return;
     sfRenderWindow_pollEvent(data->win, &event);
-    if (event.type == sfEvtClosed)
-        sfRenderWindow_close(data->win);
-    if (sfKeyboard_isKeyPressed(sfKeyEscape))
-        data->scenes = PAUSE;
     update_keys(data, event);
-    if (sfKeyboard_isKeyPressed(sfKeyL) && !status){
-        data->flash *= -1;
-        status = 1;
-    }
-    if (event.type == sfEvtKeyReleased)
-        status = 0;
     check_walls(data);
     update_movement(data);
     update_camera(data);
     update_enemy(data);
+    call_to_event(data, event);
     if (data->keys->space == 1 &&
-    is_hit(data->e, data->p->pos, data->p->angle)) {
+        is_hit(data->e, data->p->pos, data->p->angle)) {
         data->e->health -= 10;
         data->keys->space++;
         if (data->e->health <= 0)
