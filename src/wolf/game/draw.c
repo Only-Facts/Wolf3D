@@ -22,6 +22,16 @@ static sfVertexArray *create_line(sfVector2f a, sfVector2f b)
     return va;
 }
 
+static size_t flashlight(data_t *data, sfVector2i i, sfVector2f line)
+{
+    if (data->flash < 0)
+        return EXIT_SUCCESS;
+    if (i.x > 30 && i.x < 60 &&
+        line.x / 5 < i.y && line.x * 4 / 5 > i.y)
+            return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
 static void create_rectangle(data_t *data, sfColor color,
     sfVector2i i, sfVector2f line)
 {
@@ -33,6 +43,8 @@ static void create_rectangle(data_t *data, sfColor color,
     sfRectangleShape_setPosition(wall, (sfVector2f){i.x * MAP_S + start,
         i.y * 1.5 + line.y});
     sfRectangleShape_setSize(wall, (sfVector2f){MAP_S, MAP_S});
+    if (flashlight(data, i, line))
+        color = sfColor_add(color, (sfColor){40, 40, 40, 0};
     sfRectangleShape_setFillColor(wall, color);
     sfRenderWindow_drawRectangleShape(data->win, wall, NULL);
     sfRectangleShape_destroy(wall);

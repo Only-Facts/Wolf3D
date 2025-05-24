@@ -20,6 +20,9 @@ static void free_data(data_t *data)
     free(data->map->map);
     free(data->map);
     free(data->keys);
+    free(data->img->wall_arr);
+    sfImage_destroy(data->img->wall);
+    free(data->img);
     sfRenderWindow_destroy(data->win);
     free(data);
 }
@@ -55,6 +58,8 @@ static data_t *init_struct(void)
     data->scenes = MENU;
     data->menu = NULL;
     data->FOV = 80;
+    data->flash = -1;
+    data->wnb = 0;
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data) ||
         init_enemy(data, (sfVector2f){4.5 * MAP_S, 4.5 * MAP_S}))

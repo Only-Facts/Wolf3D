@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macro.h"
+#include <SFML/Window/Event.h>
 #include <math.h>
 
 static void reset_keys(data_t *data)
@@ -146,6 +147,7 @@ static void check_walls(data_t *data)
 void event(data_t *data)
 {
     sfEvent event = {.type = sfEvtKeyPressed};
+    static size_t status = 0;
 
     sfRenderWindow_pollEvent(data->win, &event);
     if (event.type == sfEvtClosed)
@@ -153,6 +155,12 @@ void event(data_t *data)
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
         data->scenes = PAUSE;
     update_keys(data, event);
+    if (sfKeyboard_isKeyPressed(sfKeyL) && !status){
+        data->flash *= -1;
+        status = 1;
+    }
+    if (event.type == sfEvtKeyReleased)
+        status = 0;
     check_walls(data);
     update_movement(data);
     update_camera(data);

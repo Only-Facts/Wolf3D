@@ -8,8 +8,11 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
+    #include <SFML/Graphics/Rect.h>
+    #include <SFML/System/Vector2.h>
+    #include <stdbool.h>
 
-    /* MAP */
+/* MAP */
     #define MAP_Y 16
     #define MAP_X 16
     #define MAP_S 16
@@ -31,6 +34,25 @@ typedef struct enemy_s {
 } enemy_t;
 
 typedef struct {
+    sfSprite *s;
+    sfTexture *t;
+    sfVector2f pos;
+    sfVector2f size;
+} sprite_t;
+
+typedef struct {
+    char name[50];
+    bool is_firearm;
+    size_t ammo;
+    sprite_t *sprite;
+    sfVector2i img_size;
+    sfIntRect idle_rect;
+    sfIntRect shoot_rect;
+    sfIntRect recoil_rect;
+    sfClock *clock;
+} weapon_t;
+
+typedef struct {
     int z;
     int s;
     int q;
@@ -43,15 +65,11 @@ typedef struct {
 typedef struct {
     sfVector2f pos;
     float angle;
-
     sfColor color;
     sfRectangleShape *texture;
-
     sfVector2i ip;
-
     sfVector2i ippo;
     sfVector2i ipmo;
-
     sfVector2i jppo;
     sfVector2i jpmo;
 } player_t;
@@ -111,6 +129,9 @@ typedef struct {
     double dtime;
     size_t FOV;
     size_t fullscreen;
+    weapon_t **w;
+    size_t wnb;
+    int flash;
 } data_t;
 
 #endif /* wolf3d */
