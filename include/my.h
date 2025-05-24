@@ -46,6 +46,7 @@ void change_screen_mode(data_t *data);
 void draw_ceiling(data_t *data);
 
 /* draw.c */
+void draw_rays(data_t *data);
 void draw(data_t *data);
 
 /* ennemy.c */
@@ -71,6 +72,7 @@ void draw_fps(sfRenderWindow *win, double fps);
 size_t init_map(data_t *data);
 
 /* player.c */
+void draw_player(data_t *data);
 size_t init_player(data_t *data);
 
 size_t weapon(data_t *data);
