@@ -12,7 +12,7 @@
     /* MAP */
     #define MAP_Y 16
     #define MAP_X 16
-    #define MAP_S 10
+    #define MAP_S 16
 
 enum scenes {
     MENU,
@@ -22,6 +22,14 @@ enum scenes {
     END,
 };
 
+typedef struct enemy_s {
+    sfVector2f position;
+    float speed;
+    int health;
+    size_t is_alive;
+    sfRectangleShape *dot;
+} enemy_t;
+
 typedef struct {
     int z;
     int s;
@@ -29,6 +37,7 @@ typedef struct {
     int d;
     int left;
     int right;
+    int space;
 } keys_t;
 
 typedef struct {
@@ -92,6 +101,7 @@ typedef struct {
 typedef struct {
     enum scenes scenes;
     player_t *p;
+    enemy_t *e;
     sfRenderWindow *win;
     map_t *map;
     ray_t *r;
@@ -99,6 +109,8 @@ typedef struct {
     img_t *img;
     menu_t *menu;
     double dtime;
+    size_t FOV;
+    size_t fullscreen;
 } data_t;
 
 #endif /* wolf3d */

@@ -34,8 +34,11 @@ MENU_FILES	=	menu.c				\
 
 DIR_GAME	=	game/
 
-GAME_FILES	=	draw.c	\
+GAME_FILES	=	ceiling.c	\
+				draw.c	\
+				enemy.c	\
 				event.c	\
+				floor.c	\
 				fps.c	\
 				map.c	\
 				player.c	\
@@ -118,7 +121,7 @@ re:		fclean all
 		@echo -e "\x1b[31mMakefile -> re\x1b[0m"
 
 run:	fclean all
-		@docker-compose up
+		@docker-compose up --remove-orphans
 
 criterion: fclean $(TEST_OBJ)
 		@$(CC) -o $(BINARY_TEST) $(TEST_OBJ) $(CFLAGS) $(DFLAGS) $(TFLAGS)

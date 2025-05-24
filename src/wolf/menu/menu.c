@@ -94,6 +94,8 @@ static void check_window_events(data_t *data, sfEvent event)
         return;
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(data->win);
+    if (event.type == sfEvtKeyPressed && event.key.code == sfKeyF11)
+        change_screen_mode(data);
 }
 
 void handle_button_click(button_t *button, sfVector2i mouse_pos,

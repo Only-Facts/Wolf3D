@@ -10,14 +10,19 @@
 
 void draw_background(sfRenderWindow *win)
 {
-    sfRectangleShape *bg = sfRectangleShape_create();
+    sfSprite *s = sfSprite_create();
+    sfTexture *bg = NULL;
 
+    if (!s)
+        return;
+    bg = sfTexture_createFromFile("assets/img/background.png", NULL);
     if (!bg)
         return;
-    sfRectangleShape_setSize(bg, (sfVector2f){WIDTH, HEIGHT});
-    sfRectangleShape_setFillColor(bg, BLACK);
-    sfRenderWindow_drawRectangleShape(win, bg, NULL);
-    sfRectangleShape_destroy(bg);
+    sfSprite_setTexture(s, bg, sfTrue);
+    sfSprite_setScale(s, (sfVector2f){1, 1});
+    sfRenderWindow_drawSprite(win, s, NULL);
+    sfTexture_destroy(bg);
+    sfSprite_destroy(s);
 }
 
 sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos)
