@@ -87,8 +87,10 @@ static void update_movement(data_t *data)
     left_right(data);
 }
 
-static void update_keys(data_t *data)
+static void update_keys(data_t *data, sfEvent event)
 {
+    if (event.type == sfEvtKeyPressed && event.key.code == sfKeyF11)
+        change_screen_mode(data);
     if (sfKeyboard_isKeyPressed(sfKeyZ))
         data->keys->z = 1;
     if (sfKeyboard_isKeyPressed(sfKeyS))
@@ -150,9 +152,7 @@ void event(data_t *data)
         sfRenderWindow_close(data->win);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
         data->scenes = PAUSE;
-    if (event.type == sfEvtKeyPressed && event.key.code == sfKeyF11)
-        change_screen_mode(data);
-    update_keys(data);
+    update_keys(data, event);
     check_walls(data);
     update_movement(data);
     update_camera(data);
