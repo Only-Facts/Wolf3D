@@ -155,6 +155,7 @@ static void draw_map(data_t *data)
             sfRenderWindow_drawRectangleShape(data->win, tile, NULL);
             sfRectangleShape_destroy(tile);
         }
+
 }
 
 static void draw_outline(data_t *data)

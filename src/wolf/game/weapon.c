@@ -15,7 +15,7 @@ static void init_rect(data_t *data)
     sfImage *image = sfImage_createFromFile("assets/img/weap_rec.png");
     sfVector2u img_size = sfImage_getSize(image);
 
-     if (!data)
+    if (!data)
         return;
     data->w[data->wnb]->idle_rect = (sfIntRect){0, 0, img_size.x, img_size.y / 3};
     data->w[data->wnb]->shoot_rect =

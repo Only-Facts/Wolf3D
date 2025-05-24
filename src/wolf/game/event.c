@@ -157,7 +157,8 @@ void event(data_t *data)
     update_camera(data);
     update_enemy(data);
     call_to_event(data, event);
-    if (data->keys->space == 1 && is_hit(data->e, data->p->pos, data->p->angle)) {
+    if (data->keys->space == 1 &&
+        is_hit(data->e, data->p->pos, data->p->angle)) {
         data->e->health -= 10;
         data->keys->space++;
         if (data->e->health <= 0)

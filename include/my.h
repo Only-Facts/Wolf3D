@@ -18,11 +18,11 @@
     #include <SFML/Window.h>
 
 enum {
-  EXIT_ERROR = 84,
-  EXIT_FAIL = -1,
-  EXIT_HELP = 2029,
-  COUT = 1,
-  CERR = 2,
+    EXIT_ERROR = 84,
+    EXIT_FAIL = -1,
+    EXIT_HELP = 2029,
+    COUT = 1,
+    CERR = 2,
 };
 
 /* >------ Project ------< */
@@ -89,7 +89,7 @@ void start_button_animation(button_t *button);
 void update_button_animation(button_t *button, float dtime);
 void check_button_clicks(data_t *data, sfVector2i mouse_pos, menu_t *menu);
 void handle_button_click(button_t *button, sfVector2i mouse_pos,
-                         sfRenderWindow *win, sfBool *action);
+    sfRenderWindow *win, sfBool *action);
 
 /* create_button.c */
 void draw_background(sfRenderWindow *win);
@@ -130,7 +130,7 @@ void str_cpy(char *a, const char *b);
 void strn_cpy(char *a, const char *b, const size_t n);
 void array_cpy(char **arr, const char **to_cpy);
 void arrayn_cpy(char **arr, const char **to_cpy, const size_t n);
- 
+
 /* cat */
 void str_cat(char *dest, const char *src);
 char *str_catalloc(const char *str, const char *add);
@@ -140,7 +140,7 @@ char **array_catalloc(const char **arr, const char **add);
 /* write */
 int write_mess(const char *mess);
 int write_error(const char *mess);
-int write_arr(const char **arr); 
+int write_arr(const char **arr);
 
 /* cmp */
 int str_cmp(const char *a, const char *b);
@@ -149,7 +149,6 @@ int strn_cmp(char const *s1, char const *s2, const size_t n);
 /* slice */
 char **slice(const char *str, const char *separators);
 char **cut(const char *str, const char *sep);
-void call_to_event(data_t *data, sfEvent event);
 
 /* convert */
 int str_to_int(const char *str);
