@@ -168,4 +168,6 @@ void draw(data_t *data)
     draw_ceiling(data);
     draw_map(data);
     draw_player(data);
+    if (data->e->is_alive)
+        sfRenderWindow_drawRectangleShape(data->win, data->e->dot, NULL);
 }

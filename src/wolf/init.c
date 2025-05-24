@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "struct.h"
 
 static void free_data(data_t *data)
 {
@@ -55,7 +56,8 @@ static data_t *init_struct(void)
     data->menu = NULL;
     data->FOV = 80;
     if (init_window(data) || init_map(data) || init_player(data) ||
-        init_ray(data) || init_keys(data) || init_img(data))
+        init_ray(data) || init_keys(data) || init_img(data) ||
+        init_enemy(data, (sfVector2f){4.5 * MAP_S, 4.5 * MAP_S}))
         return NULL;
     return data;
 }

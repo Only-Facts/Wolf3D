@@ -47,6 +47,12 @@ void draw_ceiling(data_t *data);
 /* draw.c */
 void draw(data_t *data);
 
+/* ennemy.c */
+size_t init_enemy(data_t *data, sfVector2f spawn_pos);
+void update_enemy(data_t *data);
+size_t is_hit(enemy_t *enemy, sfVector2f player_pos, float player_angle_rad);
+void destroy_enemy(enemy_t *enemy);
+
 /* event.c */
 size_t init_keys(data_t *data);
 void event(data_t *data);

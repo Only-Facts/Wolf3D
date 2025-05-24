@@ -36,6 +36,7 @@ DIR_GAME	=	game/
 
 GAME_FILES	=	ceiling.c	\
 				draw.c	\
+				enemy.c	\
 				event.c	\
 				floor.c	\
 				fps.c	\
