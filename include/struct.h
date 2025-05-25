@@ -33,6 +33,23 @@ typedef struct enemy_s {
     sfRectangleShape *dot;
 } enemy_t;
 
+typedef struct part_t {
+    float x;
+    float y;
+    float z;
+
+    float vx;
+    float vy;
+    float vz;
+
+    float time;
+    float angle;
+    float spread;
+    float speed;
+
+    size_t part_count;
+} part_t;
+
 typedef struct {
     sfSprite *s;
     sfTexture *t;
@@ -130,6 +147,7 @@ typedef struct {
     size_t FOV;
     size_t fullscreen;
     weapon_t **w;
+    part_t *part;
     size_t wnb;
     int flash;
 } data_t;
