@@ -51,7 +51,6 @@ static void init_point_upt(data_t *data, float scale, float dt,
         d.y = (p->y / p->z) * scale;
         s.x = c.x + d.x;
         s.y = c.y + d.y;
-        printf("%.2f", p->z);
         if (p->z > 1000.0f) {
             data->part_count--;
             data->part[i] = data->part[data->part_count];
