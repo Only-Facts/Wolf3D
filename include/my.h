@@ -40,6 +40,14 @@ size_t scenes(data_t *data, const double fps);
 size_t init_window(data_t *data);
 void change_screen_mode(data_t *data);
 
+/* audio.c */
+size_t init_audio(data_t *data);
+void update_music(data_t *data);
+void play_menu_music(data_t *data);
+void play_game_music(data_t *data);
+void destroy_audio(audio_t *audio);
+void update_music_volume(data_t *data);
+
 /* >------ Game ------< */
 
 /* ceiling.c */
@@ -92,29 +100,33 @@ void update_button_animation(button_t *button, float dtime);
 void check_button_clicks(data_t *data, sfVector2i mouse_pos, menu_t *menu);
 void handle_button_click(button_t *button, sfVector2i mouse_pos,
     sfRenderWindow *win, sfBool *action);
-
 /* create_button.c */
 void draw_background(sfRenderWindow *win);
-sfSprite *init_button_sprite(sfTexture *texture, sfVector2f pos);
-button_t *create_button(const char *path, sfVector2f pos);
-void destroy_button(button_t *button);
 void draw_title(sfRenderWindow *win);
+void destroy_menu(menu_t *menu);
 
 /* menu.c */
 size_t display_menu(data_t *data);
-sfTexture *load_button_texture(const char *path);
-sfBool create_background(menu_t *menu);
-void destroy_menu(menu_t *menu);
+
+/* handle_button_hover.c */
+void handle_button_hover(data_t *data);
 
 /* >------ Settings ------< */
 
 /* settings.c */
 size_t display_settings(data_t *data);
 void handle_fps_text_click(data_t *data, sfVector2i mouse_pos);
+void handle_volume_text_click(data_t *data, sfVector2i mouse_pos);
 
 /* settings_events.c */
 void handle_settings_events(data_t *data);
-void draw_background_settings(sfRenderWindow *win);
+
+/* fps_settings.c */
+sfText *create_fps_text(int fps_limit);
+sfText *create_volume_text(int volume_level);
+void update_fps_text(menu_t *menu);
+void update_volume_text(menu_t *menu);
+void toggle_fps_limit(data_t *data);
 
 /* >------ Lib ------< */
 
