@@ -62,9 +62,10 @@ static void handle_shoot(data_t *data)
     if (!data)
         return;
     data->wnb = 0;
-    if (sfKeyboard_isKeyPressed(sfKeySpace))
+    if (sfKeyboard_isKeyPressed(sfKeySpace)) {
         sfSprite_setTextureRect(data->w[data->wnb]->sprite->s,
         data->w[data->wnb]->shoot_rect);
+    }
 }
 
 size_t weapon(data_t *data)
@@ -76,5 +77,7 @@ size_t weapon(data_t *data)
     load_weapon(data);
     handle_shoot(data);
     sfRenderWindow_drawSprite(data->win, data->w[0]->sprite->s, NULL);
+    if (sfKeyboard_isKeyPressed(sfKeySpace))
+        init_f_burst(data);
     return EXIT_SUCCESS;
 }

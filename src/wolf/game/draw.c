@@ -173,4 +173,5 @@ void draw(data_t *data)
     draw_player(data);
     if (data->e->is_alive)
         sfRenderWindow_drawRectangleShape(data->win, data->e->dot, NULL);
+    fire_shot(data);
 }

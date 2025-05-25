@@ -41,6 +41,7 @@ GAME_FILES	=	ceiling.c	\
 				enemy.c	\
 				event.c	\
 				call_to_event.c	\
+				fire_shot.c	\
 				floor.c	\
 				fps.c	\
 				map.c	\
