@@ -8,7 +8,7 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
-    #include <SFML/Systems.h>
+    #include <SFML/System.h>
     #include <stdbool.h>
     #include <SFML/Audio.h>
 
@@ -144,6 +144,7 @@ typedef struct {
     double dtime;
     size_t FOV;
     size_t fullscreen;
+    sfText *ftext;
     weapon_t **w;
     size_t wnb;
     int flash;

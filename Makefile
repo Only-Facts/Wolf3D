@@ -26,6 +26,7 @@ DIR_SETT	=	menu/settings/
 SETT_FILES	=	settings.c 			\
 				settings_events.c 	\
 				fps_settings.c 		\
+				toggle_screen.c
 
 DIR_MENU	=	menu/
 

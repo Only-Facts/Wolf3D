@@ -63,6 +63,7 @@ static data_t *init_struct(void)
     data->FOV = 80;
     data->flash = -1;
     data->wnb = 0;
+    data->ftext = NULL;
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data) ||
         init_enemy(data, (sfVector2f){4.5 * MAP_S, 4.5 * MAP_S}) ||
