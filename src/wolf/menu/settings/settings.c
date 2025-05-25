@@ -47,6 +47,8 @@ static void init_settings_elements(data_t *data)
         data->menu->fps_text = create_fps_text(data->menu->fps_limit);
     if (data->menu->volume_text == NULL)
         data->menu->volume_text = create_volume_text(data->menu->volume_level);
+    if (data->ftext == NULL)
+        data->ftext = create_mode_text(data);
 }
 
 void handle_fps_text_click(data_t *data, sfVector2i mouse_pos)
@@ -63,6 +65,8 @@ void handle_volume_text_click(data_t *data, sfVector2i mouse_pos)
         return;
     if (is_text_clicked(data->menu->volume_text, mouse_pos, data->win))
         toggle_volume_level(data);
+    if (is_text_clicked(data->ftext, mouse_pos, data->win))
+        change_screen_mode(data);
 }
 
 static void draw_title_settings(sfRenderWindow *win)
@@ -110,6 +114,7 @@ static void handle_settings_hover(data_t *data)
     world_pos = sfRenderWindow_mapPixelToCoords(data->win, mouse_pos, NULL);
     handle_text_hover(data->menu->fps_text, world_pos);
     handle_text_hover(data->menu->volume_text, world_pos);
+    handle_text_hover(data->ftext, world_pos);
 }
 
 static void draw_settings(data_t *data)
@@ -123,6 +128,8 @@ static void draw_settings(data_t *data)
         sfRenderWindow_drawText(data->win, data->menu->fps_text, NULL);
     if (data->menu->volume_text)
         sfRenderWindow_drawText(data->win, data->menu->volume_text, NULL);
+    if (data->ftext)
+        sfRenderWindow_drawText(data->win, data->ftext, NULL);
 }
 
 size_t display_settings(data_t *data)

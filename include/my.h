@@ -128,6 +128,10 @@ void update_fps_text(menu_t *menu);
 void update_volume_text(menu_t *menu);
 void toggle_fps_limit(data_t *data);
 
+/* toggle_screen.c */
+sfText *create_mode_text(data_t *data);
+void update_mode_text(data_t *data);
+
 /* >------ Lib ------< */
 
 /* lenght */
