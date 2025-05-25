@@ -32,6 +32,8 @@ void handle_settings_events(data_t *data)
     while (sfRenderWindow_pollEvent(data->win, &event)) {
         if (event.type == sfEvtClosed)
             sfRenderWindow_close(data->win);
+        if (event.type == sfEvtKeyPressed && event.key.code == sfKeyF11)
+            change_screen_mode(data);
         if (event.type == sfEvtKeyPressed && event.key.code == sfKeyEscape)
             data->scenes = MENU;
         handle_click_events(data, event);

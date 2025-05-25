@@ -37,11 +37,14 @@ DIR_GAME	=	game/
 
 GAME_FILES	=	ceiling.c	\
 				draw.c	\
+				enemy.c	\
 				event.c	\
+				call_to_event.c	\
 				floor.c	\
 				fps.c	\
 				map.c	\
 				player.c	\
+				weapon.c	\
 				raycaster.c	\
 
 DIR_WOLF	=	wolf/

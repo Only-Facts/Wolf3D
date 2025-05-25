@@ -8,9 +8,11 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
+    #include <SFML/Systems.h>
+    #include <stdbool.h>
     #include <SFML/Audio.h>
 
-    /* MAP */
+/* MAP */
     #define MAP_Y 16
     #define MAP_X 16
     #define MAP_S 16
@@ -22,6 +24,33 @@ enum scenes {
     PAUSE,
     END,
 };
+
+typedef struct enemy_s {
+    sfVector2f position;
+    float speed;
+    int health;
+    size_t is_alive;
+    sfRectangleShape *dot;
+} enemy_t;
+
+typedef struct {
+    sfSprite *s;
+    sfTexture *t;
+    sfVector2f pos;
+    sfVector2f size;
+} sprite_t;
+
+typedef struct {
+    char name[50];
+    bool is_firearm;
+    size_t ammo;
+    sprite_t *sprite;
+    sfVector2i img_size;
+    sfIntRect idle_rect;
+    sfIntRect shoot_rect;
+    sfIntRect recoil_rect;
+    sfClock *clock;
+} weapon_t;
 
 enum music_type {
     NONE_MUSIC,
@@ -42,20 +71,17 @@ typedef struct {
     int d;
     int left;
     int right;
+    int space;
 } keys_t;
 
 typedef struct {
     sfVector2f pos;
     float angle;
-
     sfColor color;
     sfRectangleShape *texture;
-
     sfVector2i ip;
-
     sfVector2i ippo;
     sfVector2i ipmo;
-
     sfVector2i jppo;
     sfVector2i jpmo;
 } player_t;
@@ -107,6 +133,7 @@ typedef struct {
 typedef struct {
     enum scenes scenes;
     player_t *p;
+    enemy_t *e;
     sfRenderWindow *win;
     map_t *map;
     ray_t *r;
@@ -116,6 +143,10 @@ typedef struct {
     audio_t *audio;
     double dtime;
     size_t FOV;
+    size_t fullscreen;
+    weapon_t **w;
+    size_t wnb;
+    int flash;
 } data_t;
 
 #endif /* wolf3d */

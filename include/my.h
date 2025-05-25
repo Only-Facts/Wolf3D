@@ -8,12 +8,12 @@
 #ifndef MY
     #define MY
 
-    /* Mandatory */
-    #include <unistd.h>
-    #include <stdlib.h>
+/* Mandatory */
     #include "struct.h"
+    #include <stdlib.h>
+    #include <unistd.h>
 
-    /* CSFML */
+/* CSFML */
     #include <SFML/System.h>
     #include <SFML/Window.h>
 
@@ -38,6 +38,7 @@ size_t scenes(data_t *data, const double fps);
 
 /* window.c */
 size_t init_window(data_t *data);
+void change_screen_mode(data_t *data);
 
 /* audio.c */
 size_t init_audio(data_t *data);
@@ -53,11 +54,21 @@ void update_music_volume(data_t *data);
 void draw_ceiling(data_t *data);
 
 /* draw.c */
+void draw_rays(data_t *data);
 void draw(data_t *data);
+
+/* ennemy.c */
+size_t init_enemy(data_t *data, sfVector2f spawn_pos);
+void update_enemy(data_t *data);
+size_t is_hit(enemy_t *enemy, sfVector2f player_pos, float player_angle_rad);
+void destroy_enemy(enemy_t *enemy);
 
 /* event.c */
 size_t init_keys(data_t *data);
 void event(data_t *data);
+
+/* call_to_event */
+void call_to_event(data_t *data, sfEvent event);
 
 /* floor.c */
 void draw_floor(data_t *data);
@@ -69,7 +80,10 @@ void draw_fps(sfRenderWindow *win, double fps);
 size_t init_map(data_t *data);
 
 /* player.c */
+void draw_player(data_t *data);
 size_t init_player(data_t *data);
+
+size_t weapon(data_t *data);
 
 /* raycaster.c */
 size_t init_ray(data_t *data);
@@ -78,6 +92,14 @@ sfVector3f check_v_lines(data_t *data);
 
 /* >------ Menu ------< */
 
+/* button_animation.c */
+button_anim_t *create_button_anim(void);
+void destroy_button_anim(button_anim_t *anim);
+void start_button_animation(button_t *button);
+void update_button_animation(button_t *button, float dtime);
+void check_button_clicks(data_t *data, sfVector2i mouse_pos, menu_t *menu);
+void handle_button_click(button_t *button, sfVector2i mouse_pos,
+    sfRenderWindow *win, sfBool *action);
 /* create_button.c */
 void draw_background(sfRenderWindow *win);
 void draw_title(sfRenderWindow *win);

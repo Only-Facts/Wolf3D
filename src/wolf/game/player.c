@@ -8,6 +8,15 @@
 #include "my.h"
 #include "macro.h"
 
+void draw_player(data_t *data)
+{
+    sfVector2f pos = {data->p->pos.x - 3, data->p->pos.y - 3};
+
+    sfRectangleShape_setPosition(data->p->texture, pos);
+    sfRenderWindow_drawRectangleShape(data->win, data->p->texture, NULL);
+    draw_rays(data);
+}
+
 size_t init_player(data_t *data)
 {
     data->p = malloc(sizeof(player_t));
