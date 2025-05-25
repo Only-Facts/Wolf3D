@@ -22,6 +22,7 @@ void change_screen_mode(data_t *data)
         data->win = sfRenderWindow_create(mode, TITLE, sfFullscreen, NULL);
         data->fullscreen = 1;
     }
+    update_mode_text(data);
 }
 
 size_t init_window(data_t *data)

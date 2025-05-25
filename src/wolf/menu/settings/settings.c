@@ -10,55 +10,18 @@
 #include "macro.h"
 #include <stdio.h>
 
-static sfText *create_fps_text(int fps_limit)
+static void toggle_volume_level(data_t *data)
 {
-    sfText *text = sfText_create();
-    sfFont *font = FONT;
-    sfVector2f pos = {WIDTH / 2.0f, HEIGHT / 2.0f};
-    char fps_text[20];
-
-    if (!text || !font)
-        return NULL;
-    snprintf(fps_text, 20, "FPS Limit: %d", fps_limit);
-    sfText_setFont(text, font);
-    sfText_setCharacterSize(text, 32);
-    sfText_setString(text, fps_text);
-    sfText_setPosition(text, pos);
-    sfText_setOrigin(text, (sfVector2f){
-        sfText_getGlobalBounds(text).width / 2.0f,
-        sfText_getGlobalBounds(text).height / 2.0f});
-    sfText_setFillColor(text, WHITE);
-    return text;
-}
-
-static void update_fps_text(menu_t *menu)
-{
-    char fps_text[20];
-
-    if (!menu || !menu->fps_text)
-        return;
-    snprintf(fps_text, 20, "FPS Limit: %d", menu->fps_limit);
-    sfText_setString(menu->fps_text, fps_text);
-}
-
-static void toggle_fps_limit(data_t *data)
-{
-    int new_limit = 0;
-
     if (!data || !data->menu)
         return;
-    if (data->menu->fps_limit == 30)
-        new_limit = 60;
-    else if (data->menu->fps_limit == 60)
-        new_limit = 120;
-    else
-        new_limit = 30;
-    data->menu->fps_limit = new_limit;
-    sfRenderWindow_setFramerateLimit(data->win, new_limit);
-    update_fps_text(data->menu);
+    data->menu->volume_level += 10;
+    if (data->menu->volume_level > 100)
+        data->menu->volume_level = 0;
+    update_volume_text(data->menu);
+    update_music_volume(data);
 }
 
-static sfBool is_fps_text_clicked(sfText *text, sfVector2i mouse_pos,
+static sfBool is_text_clicked(sfText *text, sfVector2i mouse_pos,
     sfRenderWindow *win)
 {
     sfFloatRect bounds;
@@ -82,14 +45,28 @@ static void init_settings_elements(data_t *data)
         data->menu->fps_limit = 60;
     if (data->menu->fps_text == NULL)
         data->menu->fps_text = create_fps_text(data->menu->fps_limit);
+    if (data->menu->volume_text == NULL)
+        data->menu->volume_text = create_volume_text(data->menu->volume_level);
+    if (data->ftext == NULL)
+        data->ftext = create_mode_text(data);
 }
 
 void handle_fps_text_click(data_t *data, sfVector2i mouse_pos)
 {
     if (!data || !data->menu || !data->menu->fps_text)
         return;
-    if (is_fps_text_clicked(data->menu->fps_text, mouse_pos, data->win))
+    if (is_text_clicked(data->menu->fps_text, mouse_pos, data->win))
         toggle_fps_limit(data);
+}
+
+void handle_volume_text_click(data_t *data, sfVector2i mouse_pos)
+{
+    if (!data || !data->menu || !data->menu->volume_text)
+        return;
+    if (is_text_clicked(data->menu->volume_text, mouse_pos, data->win))
+        toggle_volume_level(data);
+    if (is_text_clicked(data->ftext, mouse_pos, data->win))
+        change_screen_mode(data);
 }
 
 static void draw_title_settings(sfRenderWindow *win)
@@ -110,16 +87,13 @@ static void draw_title_settings(sfRenderWindow *win)
     sfText_destroy(title);
 }
 
-static void handle_fps_text_hover(data_t *data, sfVector2i mouse_pos)
+static void handle_text_hover(sfText *text, sfVector2f world_pos)
 {
-    sfText *text = data->menu->fps_text;
     sfFloatRect bounds;
-    sfVector2f world_pos;
 
-    if (!data || !data->menu || !text || !data->win)
+    if (!text)
         return;
     bounds = sfText_getGlobalBounds(text);
-    world_pos = sfRenderWindow_mapPixelToCoords(data->win, mouse_pos, NULL);
     if (world_pos.x >= bounds.left && world_pos.x <=
         bounds.left + bounds.width &&
         world_pos.y >= bounds.top && world_pos.y <=
@@ -129,18 +103,33 @@ static void handle_fps_text_hover(data_t *data, sfVector2i mouse_pos)
         sfText_setFillColor(text, WHITE);
 }
 
-static void draw_settings(data_t *data)
+static void handle_settings_hover(data_t *data)
 {
     sfVector2i mouse_pos;
+    sfVector2f world_pos;
 
+    if (!data || !data->menu || !data->win)
+        return;
+    mouse_pos = sfMouse_getPositionRenderWindow(data->win);
+    world_pos = sfRenderWindow_mapPixelToCoords(data->win, mouse_pos, NULL);
+    handle_text_hover(data->menu->fps_text, world_pos);
+    handle_text_hover(data->menu->volume_text, world_pos);
+    handle_text_hover(data->ftext, world_pos);
+}
+
+static void draw_settings(data_t *data)
+{
     if (!data || !data->win || !data->menu)
         return;
-    draw_background_settings(data->win);
+    draw_background(data->win);
     draw_title_settings(data->win);
-    mouse_pos = sfMouse_getPositionRenderWindow(data->win);
-    handle_fps_text_hover(data, mouse_pos);
+    handle_settings_hover(data);
     if (data->menu->fps_text)
         sfRenderWindow_drawText(data->win, data->menu->fps_text, NULL);
+    if (data->menu->volume_text)
+        sfRenderWindow_drawText(data->win, data->menu->volume_text, NULL);
+    if (data->ftext)
+        sfRenderWindow_drawText(data->win, data->ftext, NULL);
 }
 
 size_t display_settings(data_t *data)

@@ -8,9 +8,9 @@
 #ifndef STRUCT
     #define STRUCT
     #include <SFML/Graphics.h>
-    #include <SFML/Graphics/Rect.h>
-    #include <SFML/System/Vector2.h>
+    #include <SFML/System.h>
     #include <stdbool.h>
+    #include <SFML/Audio.h>
 
 /* MAP */
     #define MAP_Y 16
@@ -68,6 +68,18 @@ typedef struct {
     sfClock *clock;
 } weapon_t;
 
+enum music_type {
+    NONE_MUSIC,
+    MENU_MUSIC,
+    GAME_MUSIC,
+};
+
+typedef struct {
+    sfMusic *menu_music;
+    sfMusic *game_music;
+    enum music_type current_playing;
+} audio_t;
+
 typedef struct {
     int z;
     int s;
@@ -123,13 +135,15 @@ typedef struct {
 } button_t;
 
 typedef struct {
-    button_t *play;
-    button_t *options;
-    button_t *quit;
+    sfText *play;
+    sfText *options;
+    sfText *quit;
     sfText *fps_text;
+    sfText *volume_text;
     sfSprite *background;
     sfTexture *bg_texture;
     int fps_limit;
+    int volume_level;
 } menu_t;
 
 typedef struct {
@@ -142,9 +156,11 @@ typedef struct {
     keys_t *keys;
     img_t *img;
     menu_t *menu;
+    audio_t *audio;
     double dtime;
     size_t FOV;
     size_t fullscreen;
+    sfText *ftext;
     weapon_t **w;
     part_t *part;
     size_t wnb;
