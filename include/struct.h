@@ -97,9 +97,11 @@ typedef struct {
     sfText *options;
     sfText *quit;
     sfText *fps_text;
+    sfText *volume_text;
     sfSprite *background;
     sfTexture *bg_texture;
     int fps_limit;
+    int volume_level;
 } menu_t;
 
 typedef struct {

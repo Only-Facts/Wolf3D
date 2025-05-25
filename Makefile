@@ -25,6 +25,7 @@ DIR_SETT	=	menu/settings/
 
 SETT_FILES	=	settings.c 			\
 				settings_events.c 	\
+				fps_settings.c 		\
 
 DIR_MENU	=	menu/
 
@@ -45,11 +46,12 @@ GAME_FILES	=	ceiling.c	\
 
 DIR_WOLF	=	wolf/
 
-WOLF_FILES	=	init.c		\
-				window.c	\
-				loop.c		\
-				scenes.c	\
-				audio.c 	\
+WOLF_FILES	=	init.c				\
+				window.c			\
+				loop.c				\
+				scenes.c			\
+				audio.c 			\
+				destroy_audio.c 	\
 				$(addprefix $(DIR_MENU), $(MENU_FILES))	\
 				$(addprefix $(DIR_GAME), $(GAME_FILES))	\
 				$(addprefix $(DIR_SETT), $(SETT_FILES))	\

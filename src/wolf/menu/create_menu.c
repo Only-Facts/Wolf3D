@@ -98,6 +98,8 @@ void destroy_menu(menu_t *menu)
         sfText_destroy(menu->quit);
     if (menu->fps_text)
         sfText_destroy(menu->fps_text);
+    if (menu->volume_text)
+        sfText_destroy(menu->volume_text);
     if (menu->background)
         sfSprite_destroy(menu->background);
     if (menu->bg_texture)

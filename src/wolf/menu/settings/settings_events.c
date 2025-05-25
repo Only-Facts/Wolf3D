@@ -8,11 +8,24 @@
 #include "struct.h"
 #include "macro.h"
 #include "my.h"
+#include <stdio.h>
+
+static void handle_click_events(data_t *data, sfEvent event)
+{
+    sfVector2i mouse_pos;
+
+    if (event.type != sfEvtMouseButtonPressed ||
+        event.mouseButton.button != sfMouseLeft)
+        return;
+    mouse_pos.x = event.mouseButton.x;
+    mouse_pos.y = event.mouseButton.y;
+    handle_fps_text_click(data, mouse_pos);
+    handle_volume_text_click(data, mouse_pos);
+}
 
 void handle_settings_events(data_t *data)
 {
     sfEvent event;
-    sfVector2i mouse_pos;
 
     if (!data || !data->win)
         return;
@@ -21,11 +34,6 @@ void handle_settings_events(data_t *data)
             sfRenderWindow_close(data->win);
         if (event.type == sfEvtKeyPressed && event.key.code == sfKeyEscape)
             data->scenes = MENU;
-        if (event.type == sfEvtMouseButtonPressed &&
-            event.mouseButton.button == sfMouseLeft) {
-            mouse_pos.x = event.mouseButton.x;
-            mouse_pos.y = event.mouseButton.y;
-            handle_fps_text_click(data, mouse_pos);
-        }
+        handle_click_events(data, event);
     }
 }

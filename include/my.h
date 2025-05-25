@@ -45,6 +45,7 @@ void update_music(data_t *data);
 void play_menu_music(data_t *data);
 void play_game_music(data_t *data);
 void destroy_audio(audio_t *audio);
+void update_music_volume(data_t *data);
 
 /* >------ Game ------< */
 
@@ -93,9 +94,17 @@ void handle_button_hover(data_t *data);
 /* settings.c */
 size_t display_settings(data_t *data);
 void handle_fps_text_click(data_t *data, sfVector2i mouse_pos);
+void handle_volume_text_click(data_t *data, sfVector2i mouse_pos);
 
 /* settings_events.c */
 void handle_settings_events(data_t *data);
+
+/* fps_settings.c */
+sfText *create_fps_text(int fps_limit);
+sfText *create_volume_text(int volume_level);
+void update_fps_text(menu_t *menu);
+void update_volume_text(menu_t *menu);
+void toggle_fps_limit(data_t *data);
 
 /* >------ Lib ------< */
 

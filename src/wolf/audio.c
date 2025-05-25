@@ -67,17 +67,12 @@ void play_game_music(data_t *data)
     data->audio->current_playing = GAME_MUSIC;
 }
 
-void destroy_audio(audio_t *audio)
+void update_music_volume(data_t *data)
 {
-    if (!audio)
+    if (!data || !data->audio || !data->menu)
         return;
-    if (audio->menu_music) {
-        sfMusic_stop(audio->menu_music);
-        sfMusic_destroy(audio->menu_music);
-    }
-    if (audio->game_music) {
-        sfMusic_stop(audio->game_music);
-        sfMusic_destroy(audio->game_music);
-    }
-    free(audio);
+    if (data->audio->menu_music)
+        sfMusic_setVolume(data->audio->menu_music, data->menu->volume_level);
+    if (data->audio->game_music)
+        sfMusic_setVolume(data->audio->game_music, data->menu->volume_level);
 }

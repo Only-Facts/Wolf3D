@@ -44,9 +44,11 @@ static menu_t *create_menu(void)
         return NULL;
     init_menu_buttons(menu, font);
     menu->fps_text = NULL;
+    menu->volume_text = NULL;
     menu->background = NULL;
     menu->bg_texture = NULL;
     menu->fps_limit = 60;
+    menu->volume_level = 50;
     return menu;
 }
 
