@@ -80,7 +80,8 @@ OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
 				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
-CFLAGS		=	-I./include -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
+CSFML_LIBS	=	-lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+CFLAGS		=	-I./include $(CSFML_LIBS) -lm
 
 DFLAGS		=	-g -Wall -Wextra
 

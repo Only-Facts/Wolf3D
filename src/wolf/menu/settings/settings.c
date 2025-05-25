@@ -65,7 +65,6 @@ void handle_volume_text_click(data_t *data, sfVector2i mouse_pos)
         toggle_volume_level(data);
 }
 
-
 static void draw_title_settings(sfRenderWindow *win)
 {
     sfText *title = sfText_create();
