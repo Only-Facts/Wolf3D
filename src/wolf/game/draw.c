@@ -115,7 +115,7 @@ static void draw_varray(data_t *data, int *shade)
     sfVertexArray_destroy(ray);
 }
 
-static void draw_rays(data_t *data)
+void draw_rays(data_t *data)
 {
     int shade = 0;
 
@@ -129,15 +129,6 @@ static void draw_rays(data_t *data)
         draw_walls(data, shade, i);
         data->r->angle += RAD;
     }
-}
-
-static void draw_player(data_t *data)
-{
-    sfVector2f pos = {data->p->pos.x - 3, data->p->pos.y - 3};
-
-    sfRectangleShape_setPosition(data->p->texture, pos);
-    sfRenderWindow_drawRectangleShape(data->win, data->p->texture, NULL);
-    draw_rays(data);
 }
 
 static void draw_map(data_t *data)
@@ -155,7 +146,6 @@ static void draw_map(data_t *data)
             sfRenderWindow_drawRectangleShape(data->win, tile, NULL);
             sfRectangleShape_destroy(tile);
         }
-
 }
 
 static void draw_outline(data_t *data)
