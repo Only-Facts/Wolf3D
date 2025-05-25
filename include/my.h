@@ -69,6 +69,7 @@ void draw_floor(data_t *data);
 void draw_fps(sfRenderWindow *win, double fps);
 
 /* fire_shot.c */
+void init_f_burst(data_t *data);
 void fire_shot(data_t *data);
 
 /* map.c */

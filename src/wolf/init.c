@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "struct.h"
+#include <time.h>
 
 static void free_data(data_t *data)
 {
@@ -60,6 +61,7 @@ static data_t *init_struct(void)
     data->FOV = 80;
     data->flash = -1;
     data->wnb = 0;
+    data->part = malloc(sizeof(part_t) * 500);
     if (init_window(data) || init_map(data) || init_player(data) ||
         init_ray(data) || init_keys(data) || init_img(data) ||
         init_enemy(data, (sfVector2f){4.5 * MAP_S, 4.5 * MAP_S}))
@@ -74,6 +76,7 @@ static size_t init_wolf(void)
 
     if (!data)
         return EXIT_ERROR;
+    srand(time(NULL));
     exit = loop(data);
     free_data(data);
     return exit;

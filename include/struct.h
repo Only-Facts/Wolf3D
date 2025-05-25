@@ -47,7 +47,6 @@ typedef struct part_t {
     float spread;
     float speed;
 
-    size_t part_count;
 } part_t;
 
 typedef struct {
@@ -150,6 +149,7 @@ typedef struct {
     part_t *part;
     size_t wnb;
     int flash;
+    size_t part_count;
 } data_t;
 
 #endif /* wolf3d */
